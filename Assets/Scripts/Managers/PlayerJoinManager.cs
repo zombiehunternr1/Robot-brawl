@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using System;
 
 [System.Serializable]
@@ -21,11 +22,18 @@ public class LeavePlayerEvent : UnityEvent<PlayerInput>
 {
 
 }
+[System.Serializable]
+public class StartGameEvent : UnityEvent
+{
+
+}
+
 public class PlayerJoinManager : MonoBehaviour
 {
     public static ChangeColorDisplayEvent changeColorDisplay;
     public static ChangePlayerReadyStateEvent changePlayerReadyStatus;
     public static LeavePlayerEvent leavePlayerEvent;
+    public static StartGameEvent startGameEvent;
     public static bool allPlayersReady { get; set; }
 
     [SerializeField]
@@ -49,6 +57,12 @@ public class PlayerJoinManager : MonoBehaviour
 
     private void OnEnable()
     {
+        for (int i = 0; i < playersJoined.Count; i++)
+        {
+            playersJoined[i].PlayerID = 0;
+            playersJoined[i].isReady = false;
+            playersJoined[i].skinColor = null;
+        }
         allPlayersReady = false;
         if(changeColorDisplay == null)
         {
@@ -65,6 +79,12 @@ public class PlayerJoinManager : MonoBehaviour
             leavePlayerEvent = new LeavePlayerEvent();
             leavePlayerEvent.AddListener(LeavePlayerEvent);
         }
+        if(startGameEvent == null)
+        {
+            startGameEvent = new StartGameEvent();
+            startGameEvent.AddListener(StartGame);
+
+        }
     }
 
     private void OnDisable()
@@ -72,10 +92,15 @@ public class PlayerJoinManager : MonoBehaviour
         changeColorDisplay.RemoveAllListeners();
         changePlayerReadyStatus.RemoveAllListeners();
         leavePlayerEvent.RemoveAllListeners();
-        for (int i = 0; i < playersJoined.Count; i++){
-            playersJoined[i].PlayerID = 0;
-            playersJoined[i].isReady = false;
-            playersJoined[i].skinColor = null;
+        startGameEvent.RemoveAllListeners();
+        if (!allPlayersReady)
+        {
+            for (int i = 0; i < playersJoined.Count; i++)
+            {
+                playersJoined[i].PlayerID = 0;
+                playersJoined[i].isReady = false;
+                playersJoined[i].skinColor = null;
+            }
         }
     }
 
@@ -137,7 +162,7 @@ public class PlayerJoinManager : MonoBehaviour
         {
             if (playersJoined[i].isReady)
             {
-                amountofReadyPlayers++;     
+                amountofReadyPlayers++;   
             }
         }
         if (amountofReadyPlayers >= 2 && amountofReadyPlayers == totalJoinedPlayers)
@@ -150,5 +175,10 @@ public class PlayerJoinManager : MonoBehaviour
             allPlayersReady = false;
             startGameDisplay.gameObject.SetActive(false);
         }
+    }
+
+    private void StartGame()
+    {
+        SceneManager.LoadScene("Game");
     }
 }

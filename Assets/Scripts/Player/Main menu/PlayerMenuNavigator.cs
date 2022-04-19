@@ -33,21 +33,22 @@ public class PlayerMenuNavigator : MonoBehaviour
 
     public void ConfirmOption(InputAction.CallbackContext context)
     {
-        if (context.performed && !isConfirmed)
+        if (context.performed && !isConfirmed && canInteract)
         {
             isConfirmed = true;
             anim.CrossFade("Ready", smoothAnimTransitionTime);
             PlayerJoinManager.changePlayerReadyStatus.Invoke(playerID, isConfirmed);
         }
-        else if (context.performed && PlayerJoinManager.allPlayersReady)
+        else if (context.performed && PlayerJoinManager.allPlayersReady && canInteract)
         {
-            Debug.Log("Start game");
+            canInteract = false;
+            PlayerJoinManager.startGameEvent.Invoke();
         }
     }
 
     public void ReturnOption(InputAction.CallbackContext context)
     {
-        if (context.performed && isConfirmed)
+        if (context.performed && isConfirmed && canInteract)
         {
             isConfirmed = false;
             anim.CrossFade("Unready", smoothAnimTransitionTime);
