@@ -20,8 +20,8 @@ public class PlayerMenuNavigator : MonoBehaviour
 
     private void OnEnable()
     {
-        canInteract = true;
         anim = GetComponent<Animator>();
+        canInteract = true;
         isConfirmed = false;
         StartCoroutine(MoveToOrigin());
     }

@@ -38,6 +38,7 @@ public class PlayerJoinManager : MonoBehaviour
 
     [SerializeField]
     private List<PlayerInfo> playersJoined;
+    private int totalJoinedPlayers;
     [Header("UI Elements")]
     [SerializeField]
     private RectTransform startGameDisplay;
@@ -53,7 +54,6 @@ public class PlayerJoinManager : MonoBehaviour
     private List<RectTransform> readyDisplay;
     [SerializeField]
     private List<Color32> skinColorOptions;
-    private int totalJoinedPlayers;
 
     private void OnEnable()
     {
@@ -83,7 +83,6 @@ public class PlayerJoinManager : MonoBehaviour
         {
             startGameEvent = new StartGameEvent();
             startGameEvent.AddListener(StartGame);
-
         }
     }
 
