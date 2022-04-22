@@ -6047,6 +6047,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: edf6340e-8780-4b50-97b2-89bd517148a0
     m_ActionName: Menu/Navigate Right[/Keyboard/d,/Keyboard/rightArrow,/DualShock4GamepadHID/dpad/right,/XInputControllerWindows/dpad/right]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 95740fff-c019-4635-b2df-41dd63f5626f
+    m_ActionName: Game/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/DualShock4GamepadHID/leftStick/up,/XInputControllerWindows/leftStick/up,/DualShock4GamepadHID/leftStick/down,/XInputControllerWindows/leftStick/down,/DualShock4GamepadHID/leftStick/left,/XInputControllerWindows/leftStick/left,/DualShock4GamepadHID/leftStick/right,/XInputControllerWindows/leftStick/right]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1d0e85d0-4c41-41f4-9b60-3fb21db13b03
+    m_ActionName: Game/Action[/Keyboard/space,/DualShock4GamepadHID/buttonWest,/XInputControllerWindows/buttonWest]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Menu
@@ -6065,7 +6073,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerID: 0
-  playerInfo: {fileID: 11400000, guid: 9009c614b1db32948b77847d85147e54, type: 2}
   moveSpeed: 5
   leaveSpeed: 3
   smoothAnimTransitionTime: 0.15

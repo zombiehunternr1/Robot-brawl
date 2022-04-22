@@ -1,12 +1,17 @@
 fileFormatVersion: 2
-guid: 500e81220ef752547aa8459f60a6e363
+guid: 8ce3a8cc9dc79a14a81e3e4c56e23a93
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: Fighting ready stand
-  externalObjects: {}
+    second: Idle
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eyes
+    second: {fileID: 2100000, guid: d5c0dc78f40c06c4e9356a3218da955b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -36,11 +41,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Fighting ready stand
+      name: Idle
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 99
+      lastFrame: 109
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -49,9 +54,9 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
