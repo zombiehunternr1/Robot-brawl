@@ -18,12 +18,12 @@ public class PlayerControl : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.Translate(moveDirection * movementSpeed * Time.fixedDeltaTime);
+        rB.MovePosition(rB.position + (moveDirection * movementSpeed) * Time.fixedDeltaTime);
     }
 
     public void OnMovement(InputAction.CallbackContext context)
     {
         inputDirection = context.ReadValue<Vector2>();
-        moveDirection = new Vector3(inputDirection.x, rB.velocity.y, inputDirection.y);
+        moveDirection = new Vector3(inputDirection.x, 0, inputDirection.y);
     }
 }
