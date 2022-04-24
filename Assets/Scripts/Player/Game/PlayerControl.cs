@@ -14,6 +14,7 @@ public class PlayerControl : MonoBehaviour
     private Vector2 inputDirection;
     private Vector3 moveDirection;
     private Animator anim;
+    private bool canAttack = true;
 
     private void OnEnable()
     {
@@ -38,5 +39,19 @@ public class PlayerControl : MonoBehaviour
     {
         inputDirection = context.ReadValue<Vector2>();
         moveDirection = new Vector3(inputDirection.x, 0, inputDirection.y);
+    }
+
+    public void ResetAttack()
+    {
+        canAttack = true;
+    }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (context.performed && canAttack)
+        {
+            canAttack = false;
+            anim.Play("Attack");
+        }
     }
 }
