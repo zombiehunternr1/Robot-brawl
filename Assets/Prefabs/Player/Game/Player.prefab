@@ -384,6 +384,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 3.5
   rotationSpeed: 720
+  punchDistance: 1.2
+  punchForce: 5
 --- !u!136 &1319237320
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1321,6 +1323,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7282930085577406603}
+  - component: {fileID: 4981884395917985353}
   m_Layer: 0
   m_Name: mixamorig:RightHand
   m_TagString: Untagged
@@ -1347,6 +1350,19 @@ Transform:
   m_Father: {fileID: 5064604864027994549}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4981884395917985353
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2613299371361950724}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.01, y: 0.015245955, z: 0.010000002}
+  m_Center: {x: 3.1296632e-10, y: 0.0026229888, z: 8.784835e-10}
 --- !u!1 &2617913725775707521
 GameObject:
   m_ObjectHideFlags: 0

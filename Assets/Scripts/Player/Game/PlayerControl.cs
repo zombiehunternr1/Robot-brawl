@@ -10,14 +10,20 @@ public class PlayerControl : MonoBehaviour
     private float movementSpeed;
     [SerializeField]
     private float rotationSpeed;
+    [SerializeField]
+    private float punchDistance;
+    [SerializeField]
+    private float punchForce;
     private Rigidbody rB;
     private Vector2 inputDirection;
     private Vector3 moveDirection;
     private Animator anim;
     private bool canAttack = true;
+    private BoxCollider punchCollider;
 
     private void OnEnable()
     {
+        punchCollider = GetComponentInChildren<BoxCollider>();
         rB = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
     }
@@ -34,6 +40,32 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    //Turns on the box collider when the animation calls this event and does a forward raycast with a certain distance to see if the punch animation hit something
+    //Once it hits another player it puches the other player away
+    public void EnablePunch()
+    {
+        RaycastHit hit;
+        punchCollider.enabled = true;
+        Vector3 fwd = transform.TransformDirection(Vector3.forward);
+        if (Physics.Raycast(punchCollider.transform.position, fwd, out hit, punchDistance))
+        {
+            Debug.Log(hit.collider.name);
+            hit.collider.GetComponent<Rigidbody>().AddForce(transform.forward * punchForce, ForceMode.Impulse);
+        }
+    }
+
+    //Turns off the box collider when the animation calls this event
+    public void DisablePunch()
+    {
+        punchCollider.enabled = false;
+    }
+
+    //After the punching animation is done this function will reset the can attack boolean so the player can punch again
+    public void ResetAttack()
+    {
+        canAttack = true;
+    } 
+
     //Gets the players movement input and stores it into a Vector3
     public void OnMovement(InputAction.CallbackContext context)
     {
@@ -41,11 +73,7 @@ public class PlayerControl : MonoBehaviour
         moveDirection = new Vector3(inputDirection.x, 0, inputDirection.y);
     }
 
-    public void ResetAttack()
-    {
-        canAttack = true;
-    }
-
+    //When the player wants to attack and is allowed to the can attack boolean will get set to false and the punching animation will get played
     public void OnAttack(InputAction.CallbackContext context)
     {
         if (context.performed && canAttack)
