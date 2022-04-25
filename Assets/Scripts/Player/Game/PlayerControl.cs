@@ -44,8 +44,8 @@ public class PlayerControl : MonoBehaviour
     //Once it hits another player it puches the other player away
     public void EnablePunch()
     {
-        RaycastHit hit;
         punchCollider.enabled = true;
+        RaycastHit hit;
         Vector3 fwd = transform.TransformDirection(Vector3.forward);
         if (Physics.Raycast(punchCollider.transform.position, fwd, out hit, punchDistance))
         {

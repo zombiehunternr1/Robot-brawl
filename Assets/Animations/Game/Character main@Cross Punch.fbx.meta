@@ -1,17 +1,12 @@
 fileFormatVersion: 2
-guid: 8ce3a8cc9dc79a14a81e3e4c56e23a93
+guid: 3494880e74f34df48bf986229af4783d
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: Idle
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Eyes
-    second: {fileID: 2100000, guid: d5c0dc78f40c06c4e9356a3218da955b, type: 2}
+    second: Cross Punch
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -41,30 +36,51 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Idle
+      name: Cross Punch
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 109
+      lastFrame: 60
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
-      keepOriginalOrientation: 0
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
+      keepOriginalPositionXZ: 1
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.6308725
+        functionName: DisablePunch
+        data: 
+        objectReferenceParameter: {fileID: 585603867288450540, guid: 41b7597d10d26154495f8ed390783346, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9966443
+        functionName: ResetAttack
+        data: 
+        objectReferenceParameter: {fileID: 585603867288450540, guid: 41b7597d10d26154495f8ed390783346, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.53691274
+        functionName: EnablePunch
+        data: 
+        objectReferenceParameter: {fileID: 585603867288450540, guid: 41b7597d10d26154495f8ed390783346, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
