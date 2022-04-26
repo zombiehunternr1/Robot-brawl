@@ -7,6 +7,8 @@ using UnityEngine.InputSystem;
 public class PlayerControl : MonoBehaviour
 {
     [SerializeField]
+    private AnimatorController gameAnimations;
+    [SerializeField]
     private float movementSpeed;
     [SerializeField]
     private float rotationSpeed;
@@ -26,6 +28,7 @@ public class PlayerControl : MonoBehaviour
         punchCollider = GetComponentInChildren<BoxCollider>();
         rB = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
+        anim.runtimeAnimatorController = gameAnimations;
     }
 
     //Updates the players position and rotation depending on the movement direction

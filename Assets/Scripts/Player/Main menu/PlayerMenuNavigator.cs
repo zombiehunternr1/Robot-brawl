@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +10,8 @@ public class PlayerMenuNavigator : MonoBehaviour
     public bool canInteract { get; set; }
     public int playerID;
 
+    [SerializeField]
+    private AnimatorController menuAnimations;
     [SerializeField]
     private float moveSpeed;
     [SerializeField]
@@ -21,6 +24,7 @@ public class PlayerMenuNavigator : MonoBehaviour
     private void OnEnable()
     {
         anim = GetComponent<Animator>();
+        anim.runtimeAnimatorController = menuAnimations;
         canInteract = true;
         isConfirmed = false;
         StartCoroutine(MoveToOrigin());

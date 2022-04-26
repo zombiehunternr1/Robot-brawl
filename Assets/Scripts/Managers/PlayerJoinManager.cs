@@ -84,6 +84,7 @@ public class PlayerJoinManager : MonoBehaviour
             startGameEvent = new StartGameEvent();
             startGameEvent.AddListener(StartGame);
         }
+        DontDestroyOnLoad(this);
     }
 
     private void OnDisable()
@@ -178,6 +179,11 @@ public class PlayerJoinManager : MonoBehaviour
 
     private void StartGame()
     {
+        //loop over spawn point list to get players
+        //Switch default map from menu to game
+        //Disable player menu navigator
+        //Enable player control
+        //Enable rigidbody gravity
         SceneManager.LoadScene("Game");
     }
 }

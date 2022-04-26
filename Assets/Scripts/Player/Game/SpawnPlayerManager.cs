@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SpawnPlayerManager : MonoBehaviour
 {
@@ -8,10 +9,9 @@ public class SpawnPlayerManager : MonoBehaviour
     private List<Transform> SpawnPoints;
     [SerializeField]
     private List<PlayerInfo> playerInfo;
-
     private void Start()
     {
-        PlayerInitialisation();
+        //PlayerInitialisation();
     }
 
     private void PlayerInitialisation()
@@ -20,9 +20,7 @@ public class SpawnPlayerManager : MonoBehaviour
         {
             if(playerInfo[i].PlayerID != 0)
             {
-                SpawnPoints[i].gameObject.SetActive(true);
-                PlayerSkinManager player = SpawnPoints[i].GetComponentInChildren<PlayerSkinManager>();
-                player.ChangeSkinType(playerInfo[i].skinColor);
+
             }
         }
     }
