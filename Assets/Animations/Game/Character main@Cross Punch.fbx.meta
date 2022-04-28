@@ -63,21 +63,21 @@ ModelImporter:
       - time: 0.6308725
         functionName: DisablePunch
         data: 
-        objectReferenceParameter: {fileID: 585603867288450540, guid: 41b7597d10d26154495f8ed390783346, type: 3}
+        objectReferenceParameter: {fileID: 8918904226465959315, guid: 3657d916252d67f44a4add4cef7d28f6, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.9966443
         functionName: ResetAttack
         data: 
-        objectReferenceParameter: {fileID: 585603867288450540, guid: 41b7597d10d26154495f8ed390783346, type: 3}
+        objectReferenceParameter: {fileID: 8918904226465959315, guid: 3657d916252d67f44a4add4cef7d28f6, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.53691274
         functionName: EnablePunch
         data: 
-        objectReferenceParameter: {fileID: 585603867288450540, guid: 41b7597d10d26154495f8ed390783346, type: 3}
+        objectReferenceParameter: {fileID: 8918904226465959315, guid: 3657d916252d67f44a4add4cef7d28f6, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0

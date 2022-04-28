@@ -27,8 +27,11 @@ public class PlayerControl : MonoBehaviour
     {
         punchCollider = GetComponentInChildren<BoxCollider>();
         rB = GetComponent<Rigidbody>();
+        rB.useGravity = true;
         anim = GetComponent<Animator>();
         anim.runtimeAnimatorController = gameAnimations;
+        PlayerInput playerInput = GetComponent<PlayerInput>();
+        playerInput.SwitchCurrentActionMap("Game");       
     }
 
     //Updates the players position and rotation depending on the movement direction

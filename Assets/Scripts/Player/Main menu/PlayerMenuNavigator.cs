@@ -3,9 +3,19 @@ using System.Collections.Generic;
 using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
+using System;
+
+[System.Serializable]
+public class SwitchControlsToGameEvent : UnityEvent
+{
+
+}
 
 public class PlayerMenuNavigator : MonoBehaviour
 {
+    public static SwitchControlsToGameEvent switchControlsToGame;
+
     public bool isConfirmed { get; set; }
     public bool canInteract { get; set; }
     public int playerID;
@@ -21,15 +31,27 @@ public class PlayerMenuNavigator : MonoBehaviour
     private PlayerInput playerJoinedRef;
     private Animator anim;
     private Vector3 spawnPos;
+    private PlayerControl playerControl;
 
     private void OnEnable()
     {
-        DontDestroyOnLoad(gameObject);
+        if(switchControlsToGame == null)
+        {
+            switchControlsToGame = new SwitchControlsToGameEvent();
+            switchControlsToGame.AddListener(SwitchControls);
+        }
+        playerControl = GetComponent<PlayerControl>();
         anim = GetComponent<Animator>();
         anim.runtimeAnimatorController = menuAnimations;
         canInteract = true;
         isConfirmed = false;
+        DontDestroyOnLoad(gameObject);
         StartCoroutine(MoveToOrigin());
+    }
+
+    private void OnDisable()
+    {
+        switchControlsToGame.RemoveAllListeners();
     }
 
     public void GetPlayerInput(PlayerInput playerInput)
@@ -53,6 +75,8 @@ public class PlayerMenuNavigator : MonoBehaviour
         else if (context.performed && PlayerJoinManager.allPlayersReady && canInteract)
         {
             canInteract = false;
+            //Improve to make it work for all players
+            switchControlsToGame.Invoke();
             PlayerJoinManager.startGameEvent.Invoke();
         }
     }
@@ -69,6 +93,13 @@ public class PlayerMenuNavigator : MonoBehaviour
         {
             StartCoroutine(LeaveFromOrigin(playerJoinedRef));
         }
+    }
+
+    //Improve to make it work for all players
+    private void SwitchControls()
+    {
+        playerControl.enabled = true;
+        this.enabled = false;
     }
 
     private IEnumerator MoveToOrigin()
