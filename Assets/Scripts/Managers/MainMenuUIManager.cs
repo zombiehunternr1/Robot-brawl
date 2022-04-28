@@ -52,11 +52,12 @@ public class MainMenuUIManager : MonoBehaviour
         {
             joiningDisplay[playerInput.playerIndex].gameObject.SetActive(false);
             navigationDisplay[playerInput.playerIndex].gameObject.SetActive(true);
-            playerInput.transform.position = spawnPos[playerInput.playerIndex].position + new Vector3(0, -3.5f, 0);
-            playerInput.transform.SetParent(spawnPos[playerInput.playerIndex]);
-            playerInput.transform.rotation = new Quaternion(0, 180, 0, 0);
-            playerInput.gameObject.GetComponent<PlayerMenuNavigator>().playerID = playerInput.playerIndex + 1;
-            playerInput.gameObject.GetComponent<PlayerMenuNavigator>().GetPlayerInput(playerInput);
+            PlayerMenuNavigator player = playerInput.gameObject.GetComponent<PlayerMenuNavigator>();
+            player.playerID = playerInput.playerIndex + 1;
+            player.GetPlayerInput(playerInput);
+            player.GetSpawnPos(spawnPos[playerInput.playerIndex].position);
+            player.transform.position = spawnPos[playerInput.playerIndex].position + new Vector3(0, -3.5f, 0);
+            player.transform.rotation = new Quaternion(0, 180, 0, 0);
         }
         else
         {

@@ -20,9 +20,11 @@ public class PlayerMenuNavigator : MonoBehaviour
     private float smoothAnimTransitionTime;
     private PlayerInput playerJoinedRef;
     private Animator anim;
+    private Vector3 spawnPos;
 
     private void OnEnable()
     {
+        DontDestroyOnLoad(gameObject);
         anim = GetComponent<Animator>();
         anim.runtimeAnimatorController = menuAnimations;
         canInteract = true;
@@ -33,6 +35,11 @@ public class PlayerMenuNavigator : MonoBehaviour
     public void GetPlayerInput(PlayerInput playerInput)
     {
         playerJoinedRef = playerInput;
+    }
+
+    public void GetSpawnPos(Vector3 getSpawnPoint)
+    {
+        spawnPos = getSpawnPoint;
     }
 
     public void ConfirmOption(InputAction.CallbackContext context)
@@ -69,12 +76,12 @@ public class PlayerMenuNavigator : MonoBehaviour
         if (canInteract)
         {
             canInteract = false;
-            while (transform.localPosition != new Vector3(0, 0, 0))
+            while (transform.position != spawnPos)
             {
-                transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(0, 0, 0), Time.deltaTime * moveSpeed);
-                yield return transform.localPosition;
+                transform.position = Vector3.Lerp(transform.position, spawnPos, Time.deltaTime * moveSpeed);
+                yield return transform.position;
             }
-            transform.localPosition = new Vector3(0, 0, 0);
+            transform.position = spawnPos;
             canInteract = true;
             StopAllCoroutines();
         }
@@ -86,12 +93,12 @@ public class PlayerMenuNavigator : MonoBehaviour
         {
             canInteract = false;
             PlayerJoinManager.leavePlayerEvent.Invoke(playerInput);
-            while (transform.localPosition != new Vector3(0, -3.5f, 0))
+            while (transform.position != new Vector3(spawnPos.x, -3.5f, spawnPos.z))
             {
-                transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(0, -3.5f, 0), Time.deltaTime * moveSpeed * leaveSpeed);
-                yield return transform.localPosition;
+                transform.position = Vector3.Lerp(transform.position, new Vector3(spawnPos.x, -3.5f, spawnPos.y), Time.deltaTime * moveSpeed * leaveSpeed);
+                yield return transform.position;
             }
-            transform.localPosition = new Vector3(0, -3.5f, 0);
+            transform.position = new Vector3(spawnPos.x, -3.5f, spawnPos.z);
             Destroy(gameObject);
         }
     }
