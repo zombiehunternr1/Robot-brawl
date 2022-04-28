@@ -933,48 +933,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8c68af7db8933345a2af7306a9ca9cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainMenuReference: {fileID: 408432853}
   playersJoined:
   - {fileID: 11400000, guid: aa5d7d49d0b5578498cb312c9f8089ba, type: 2}
   - {fileID: 11400000, guid: 9009c614b1db32948b77847d85147e54, type: 2}
   - {fileID: 11400000, guid: 351569c009cee5f439a0859fc61558e0, type: 2}
   - {fileID: 11400000, guid: c7a0cdfad7f8a5145a91a906e08b13f1, type: 2}
-  startGameDisplay: {fileID: 1037402248}
-  spawnPos:
-  - {fileID: 507007631}
-  - {fileID: 883795697}
-  - {fileID: 1845916704}
-  - {fileID: 1334037820}
-  joiningDisplay:
-  - {fileID: 205719179}
-  - {fileID: 880960179}
-  - {fileID: 1956995406}
-  - {fileID: 1664533394}
-  navigationDisplay:
-  - {fileID: 2030219061}
-  - {fileID: 2109617485}
-  - {fileID: 1348631459}
-  - {fileID: 1914704308}
-  skinColorDisplay:
-  - {fileID: 300678468}
-  - {fileID: 1694505663}
-  - {fileID: 2095049487}
-  - {fileID: 1983748478}
-  readyDisplay:
-  - {fileID: 558255670}
-  - {fileID: 510874393}
-  - {fileID: 2070146806}
-  - {fileID: 1897473763}
-  skinColorOptions:
-  - serializedVersion: 2
-    rgba: 4278193663
-  - serializedVersion: 2
-    rgba: 4278255612
-  - serializedVersion: 2
-    rgba: 4278190080
-  - serializedVersion: 2
-    rgba: 4278224127
-  - serializedVersion: 2
-    rgba: 4294964480
 --- !u!1 &173791771
 GameObject:
   m_ObjectHideFlags: 0
@@ -2278,6 +2242,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 408432852}
+  - component: {fileID: 408432853}
   m_Layer: 0
   m_Name: Joining spots
   m_TagString: Untagged
@@ -2304,6 +2269,60 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &408432853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 408432851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3249c492d3e3794f99f80168044cd4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startGameDisplay: {fileID: 1037402248}
+  joiningDisplay:
+  - {fileID: 205719179}
+  - {fileID: 880960179}
+  - {fileID: 1956995406}
+  - {fileID: 1664533394}
+  navigationDisplay:
+  - {fileID: 2030219061}
+  - {fileID: 2109617485}
+  - {fileID: 1348631459}
+  - {fileID: 1914704308}
+  skinColorDisplay:
+  - {fileID: 300678468}
+  - {fileID: 1694505663}
+  - {fileID: 2095049487}
+  - {fileID: 1983748478}
+  readyDisplay:
+  - {fileID: 558255670}
+  - {fileID: 510874393}
+  - {fileID: 2070146806}
+  - {fileID: 1897473763}
+  skinColorOptions:
+  - serializedVersion: 2
+    rgba: 4278190335
+  - serializedVersion: 2
+    rgba: 4278247935
+  - serializedVersion: 2
+    rgba: 4278190080
+  - serializedVersion: 2
+    rgba: 4278224895
+  - serializedVersion: 2
+    rgba: 4294961664
+  spawnPos:
+  - {fileID: 507007631}
+  - {fileID: 883795697}
+  - {fileID: 1845916704}
+  - {fileID: 1334037820}
+  playersJoined:
+  - {fileID: 11400000, guid: aa5d7d49d0b5578498cb312c9f8089ba, type: 2}
+  - {fileID: 11400000, guid: 9009c614b1db32948b77847d85147e54, type: 2}
+  - {fileID: 11400000, guid: 351569c009cee5f439a0859fc61558e0, type: 2}
+  - {fileID: 11400000, guid: c7a0cdfad7f8a5145a91a906e08b13f1, type: 2}
 --- !u!1 &432123530
 GameObject:
   m_ObjectHideFlags: 0

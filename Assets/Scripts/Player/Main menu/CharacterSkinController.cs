@@ -56,7 +56,7 @@ public class CharacterSkinController : MonoBehaviour
                 characterMaterials[i].material = skinColors[index];
             }
         }
-        PlayerJoinManager.changeColorDisplay.Invoke(playerNav.playerID, index, skinColors[skinColorIndex]);
+        MainMenuUIManager.changeColorDisplay.Invoke(playerNav.playerID, index, skinColors[skinColorIndex]);
     }
 
     public void NextSkinType(InputAction.CallbackContext context)
