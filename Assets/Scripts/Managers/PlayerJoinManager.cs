@@ -22,7 +22,6 @@ public class StartGameEvent : UnityEvent
 {
 
 }
-
 public class PlayerJoinManager : MonoBehaviour
 {
     public static ChangePlayerReadyStateEvent changePlayerReadyStatus;
@@ -33,16 +32,18 @@ public class PlayerJoinManager : MonoBehaviour
     [SerializeField]
     private MainMenuUIManager mainMenuReference;
     [SerializeField]
-    private List<PlayerInfo> playersJoined;
+    private List<PlayerInfo> playersJoinedSO;
+    [SerializeField][HideInInspector]
+    private List<PlayerMenuNavigator> playersJoinedPrefabs;
     private int totalJoinedPlayers;    
 
     private void OnEnable()
     {
-        for (int i = 0; i < playersJoined.Count; i++)
+        for (int i = 0; i < playersJoinedSO.Count; i++)
         {
-            playersJoined[i].PlayerID = 0;
-            playersJoined[i].isReady = false;
-            playersJoined[i].skinColor = null;
+            playersJoinedSO[i].PlayerID = 0;
+            playersJoinedSO[i].isReady = false;
+            playersJoinedSO[i].skinColor = null;
         }
         allPlayersReady = false;
         if(changePlayerReadyStatus == null)
@@ -70,11 +71,11 @@ public class PlayerJoinManager : MonoBehaviour
         startGameEvent.RemoveAllListeners();
         if (!allPlayersReady)
         {
-            for (int i = 0; i < playersJoined.Count; i++)
+            for (int i = 0; i < playersJoinedSO.Count; i++)
             {
-                playersJoined[i].PlayerID = 0;
-                playersJoined[i].isReady = false;
-                playersJoined[i].skinColor = null;
+                playersJoinedSO[i].PlayerID = 0;
+                playersJoinedSO[i].isReady = false;
+                playersJoinedSO[i].skinColor = null;
             }
         }
     }
@@ -84,11 +85,13 @@ public class PlayerJoinManager : MonoBehaviour
         AudioManager.instance.PlayJoinEvent();
         mainMenuReference.UpdateUIDisplay(playerInput, true);
         totalJoinedPlayers++;
+        playersJoinedPrefabs.Add(playerInput.GetComponent<PlayerMenuNavigator>());
         CheckStartGame();
     }
 
     private void LeavePlayerEvent(PlayerInput playerInput)
     {
+        playersJoinedPrefabs.Remove(playerInput.GetComponent<PlayerMenuNavigator>());
         AudioManager.instance.PlayLeaveEvent();
         mainMenuReference.UpdateUIDisplay(playerInput, false);
         totalJoinedPlayers--;
@@ -99,13 +102,13 @@ public class PlayerJoinManager : MonoBehaviour
     {
         if (isReady)
         {
-            playersJoined[playerIndex - 1].PlayerID = playerIndex;
-            playersJoined[playerIndex - 1].isReady = isReady;
+            playersJoinedSO[playerIndex - 1].PlayerID = playerIndex;
+            playersJoinedSO[playerIndex - 1].isReady = isReady;
         }
         else
         {
-            playersJoined[playerIndex - 1].PlayerID = 0;
-            playersJoined[playerIndex - 1].isReady = isReady;
+            playersJoinedSO[playerIndex - 1].PlayerID = 0;
+            playersJoinedSO[playerIndex - 1].isReady = isReady;
         }
         AudioManager.instance.PlayReadyEvent();
         mainMenuReference.UpdateReadyDisplay(playerIndex, isReady);
@@ -115,9 +118,9 @@ public class PlayerJoinManager : MonoBehaviour
     private void CheckStartGame()
     {
         int amountofReadyPlayers = 0;
-        for(int i = 0; i < playersJoined.Count; i++)
+        for(int i = 0; i < playersJoinedSO.Count; i++)
         {
-            if (playersJoined[i].isReady)
+            if (playersJoinedSO[i].isReady)
             {
                 amountofReadyPlayers++;   
             }
@@ -135,6 +138,10 @@ public class PlayerJoinManager : MonoBehaviour
 
     private void StartGame()
     {
+        foreach(PlayerMenuNavigator player in playersJoinedPrefabs)
+        {
+            player.SwitchControls();
+        }
         SceneManager.LoadScene("Game");
     }
 }
