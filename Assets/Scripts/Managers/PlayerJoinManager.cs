@@ -89,6 +89,7 @@ public class PlayerJoinManager : MonoBehaviour
 
     private void LeavePlayerEvent(PlayerInput playerInput)
     {
+        AudioManager.instance.PlayLeaveEvent();
         mainMenuReference.UpdateUIDisplay(playerInput, false);
         totalJoinedPlayers--;
         CheckStartGame();

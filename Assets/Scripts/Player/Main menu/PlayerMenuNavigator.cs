@@ -85,14 +85,13 @@ public class PlayerMenuNavigator : MonoBehaviour
         if (canInteract)
         {
             canInteract = false;
-            AudioManager.instance.PlayLeaveEvent();
+            PlayerJoinManager.leavePlayerEvent.Invoke(playerInput);
             while (transform.localPosition != new Vector3(0, -3.5f, 0))
             {
                 transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(0, -3.5f, 0), Time.deltaTime * moveSpeed * leaveSpeed);
                 yield return transform.localPosition;
             }
             transform.localPosition = new Vector3(0, -3.5f, 0);
-            PlayerJoinManager.leavePlayerEvent.Invoke(playerInput);
             Destroy(gameObject);
         }
     }
