@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: fc3a627ed5a5d8341871fe433a50cfd9
+guid: 0f08caf1c6c49674aadf31e164eff40b
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: Running
+    second: Game punch
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -36,19 +36,19 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Running
+      name: Game punch
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 19
+      lastFrame: 60
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 1
+      loopTime: 0
+      loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
@@ -59,7 +59,28 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.49488056
+        functionName: EnablePunch
+        data: 
+        objectReferenceParameter: {fileID: 8918904226465959315, guid: 3657d916252d67f44a4add4cef7d28f6, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.6006826
+        functionName: DisablePunch
+        data: 
+        objectReferenceParameter: {fileID: 8918904226465959315, guid: 3657d916252d67f44a4add4cef7d28f6, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.91985434
+        functionName: ResetAttack
+        data: 
+        objectReferenceParameter: {fileID: 8918904226465959315, guid: 3657d916252d67f44a4add4cef7d28f6, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

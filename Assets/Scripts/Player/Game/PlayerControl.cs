@@ -11,6 +11,8 @@ public class PlayerControl : MonoBehaviour
     [SerializeField]
     private float movementSpeed;
     [SerializeField]
+    private float smoothInputSpeed = .2f;
+    [SerializeField]
     private float rotationSpeed;
     [SerializeField]
     private float punchDistance;
@@ -18,6 +20,7 @@ public class PlayerControl : MonoBehaviour
     private float punchForce;
     private Rigidbody rB;
     private Vector2 inputDirection;
+    private Vector2 smoothInputVelocity;
     private Vector3 moveDirection;
     private Animator anim;
     private bool canAttack = true;
@@ -37,13 +40,15 @@ public class PlayerControl : MonoBehaviour
     //Updates the players position and rotation depending on the movement direction
     private void FixedUpdate()
     {
-        rB.MovePosition(transform.position + (moveDirection * movementSpeed) * Time.fixedDeltaTime);
-        anim.SetFloat("Speed", rB.velocity.magnitude);
-        if(moveDirection != Vector3.zero)
+        if(moveDirection == Vector3.zero)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
-            rB.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
+            return;
         }
+        Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+        targetRotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360 * Time.fixedDeltaTime);
+        rB.MovePosition(rB.position + moveDirection * movementSpeed * Time.fixedDeltaTime);
+        rB.MoveRotation(targetRotation);
+        anim.SetFloat("Speed", rB.velocity.magnitude);
     }
 
     //Turns on the box collider when the animation calls this event and does a forward raycast with a certain distance to see if the punch animation hit something
@@ -75,8 +80,12 @@ public class PlayerControl : MonoBehaviour
     //Gets the players movement input and stores it into a Vector3
     public void OnMovement(InputAction.CallbackContext context)
     {
-        inputDirection = context.ReadValue<Vector2>();
-        moveDirection = new Vector3(inputDirection.x, 0, inputDirection.y);
+        if (context.performed)
+        {
+            Vector2 rawInput = context.ReadValue<Vector2>();
+            inputDirection = Vector2.SmoothDamp(inputDirection, rawInput, ref smoothInputVelocity, smoothInputSpeed);
+            moveDirection = new Vector3(inputDirection.x, 0, inputDirection.y);
+        }
     }
 
     //When the player wants to attack and is allowed to the can attack boolean will get set to false and the punching animation will get played

@@ -453,7 +453,7 @@
                 {
                     "name": "Gamepad",
                     "id": "bd1c13e4-c431-47c6-9daa-c4283992944f",
-                    "path": "2DVector",
+                    "path": "2DVector(mode=2)",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

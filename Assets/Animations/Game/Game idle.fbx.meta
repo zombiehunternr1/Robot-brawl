@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 8ad270b1aac4a4c40ab2312aa9b252d5
+guid: f80f79bc3635baa4fb1b0c4d1c1be3a1
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: Idle game
+    second: Game idle
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -36,11 +36,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Idle game
+      name: Game idle
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 109
+      lastFrame: 89
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
