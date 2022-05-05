@@ -18,6 +18,12 @@ public class PlayerControl : MonoBehaviour
     private float punchDistance;
     [SerializeField]
     private float punchForce;
+    [SerializeField]
+    private Transform groundCheck;
+    [SerializeField]
+    LayerMask groundMask;
+    [SerializeField]
+    float distanceToGround;
     private Rigidbody rB;
     private Vector2 inputDirection;
     private Vector2 smoothInputVelocity;
@@ -35,6 +41,20 @@ public class PlayerControl : MonoBehaviour
         anim.runtimeAnimatorController = gameAnimations;
         PlayerInput playerInput = GetComponent<PlayerInput>();
         playerInput.SwitchCurrentActionMap("Game");       
+    }
+    //Enables or disables the gravity if the player is currently in the air or not
+    private void Update()
+    {
+        if (IsGrounded())
+        {
+            rB.useGravity = false;
+            rB.isKinematic = true;
+        }
+        else
+        {
+            rB.useGravity = true;
+            rB.isKinematic = false;
+        }
     }
 
     //Updates the players position and rotation depending on the movement direction
@@ -96,5 +116,10 @@ public class PlayerControl : MonoBehaviour
             canAttack = false;
             anim.Play("Attack");
         }
+    }
+    //This checks if the player is currently on the ground or not
+    private bool IsGrounded()
+    {
+        return Physics.CheckSphere(groundCheck.position, distanceToGround, groundMask);
     }
 }
