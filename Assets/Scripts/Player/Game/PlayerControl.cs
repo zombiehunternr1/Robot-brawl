@@ -30,11 +30,11 @@ public class PlayerControl : MonoBehaviour
     private Vector3 moveDirection;
     private Animator anim;
     private bool canAttack = true;
-    private BoxCollider punchCollider;
+    private SphereCollider punchCollider;
 
     private void OnEnable()
     {
-        punchCollider = GetComponentInChildren<BoxCollider>();
+        punchCollider = GetComponentInChildren<SphereCollider>();
         rB = GetComponent<Rigidbody>();
         rB.useGravity = true;
         anim = GetComponent<Animator>();
@@ -48,12 +48,10 @@ public class PlayerControl : MonoBehaviour
         if (IsGrounded())
         {
             rB.useGravity = false;
-            rB.isKinematic = true;
         }
         else
         {
             rB.useGravity = true;
-            rB.isKinematic = false;
         }
     }
 
@@ -67,25 +65,32 @@ public class PlayerControl : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
         targetRotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360 * Time.fixedDeltaTime);
         rB.MovePosition(rB.position + moveDirection * movementSpeed * Time.fixedDeltaTime);
+        //rB.AddForce(transform.position + moveDirection * movementSpeed * Time.fixedDeltaTime);
         rB.MoveRotation(targetRotation);
         anim.SetFloat("Speed", rB.velocity.magnitude);
     }
 
-    //Turns on the box collider when the animation calls this event and does a forward raycast with a certain distance to see if the punch animation hit something
-    //Once it hits another player it puches the other player away
+    //Turns on the sphere collider when the animation calls this event
     public void EnablePunch()
     {
         punchCollider.enabled = true;
-        RaycastHit hit;
-        Vector3 fwd = transform.TransformDirection(Vector3.forward);
-        if (Physics.Raycast(punchCollider.transform.position, fwd, out hit, punchDistance))
-        {
-            Debug.Log(hit.collider.name);
-            hit.collider.GetComponent<Rigidbody>().AddForce(transform.forward * punchForce, ForceMode.Impulse);
-        }
     }
 
-    //Turns off the box collider when the animation calls this event
+    private void OnTriggerEnter(Collider other)
+    {
+        //if (other.GetComponent<PlayerControl>() == null)
+        //{
+        //    return;           
+        //}
+        //if (other.GetComponent<PlayerControl>() != this)
+        //{
+        //    Vector3 targetHitDirection = new Vector3();
+        //    targetHitDirection = other.transform.position - punchCollider.transform.position.normalized;
+        //    other.GetComponent<Rigidbody>().AddForce(targetHitDirection * punchForce, ForceMode.Impulse);
+        //}
+    }
+
+    //Turns off the sphere collider when the animation calls this event
     public void DisablePunch()
     {
         punchCollider.enabled = false;
@@ -105,6 +110,12 @@ public class PlayerControl : MonoBehaviour
             Vector2 rawInput = context.ReadValue<Vector2>();
             inputDirection = Vector2.SmoothDamp(inputDirection, rawInput, ref smoothInputVelocity, smoothInputSpeed);
             moveDirection = new Vector3(inputDirection.x, 0, inputDirection.y);
+        }
+        if (context.canceled)
+        {
+            inputDirection = Vector3.zero;
+            moveDirection = inputDirection;
+            rB.velocity = Vector3.zero;
         }
     }
 
