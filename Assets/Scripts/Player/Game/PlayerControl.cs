@@ -65,7 +65,6 @@ public class PlayerControl : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
         targetRotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360 * Time.fixedDeltaTime);
         rB.MovePosition(rB.position + moveDirection * movementSpeed * Time.fixedDeltaTime);
-        //rB.AddForce(transform.position + moveDirection * movementSpeed * Time.fixedDeltaTime);
         rB.MoveRotation(targetRotation);
         anim.SetFloat("Speed", rB.velocity.magnitude);
     }
