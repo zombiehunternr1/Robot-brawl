@@ -11,7 +11,9 @@ public class PlayerControl : MonoBehaviour
     [SerializeField]
     private float movementSpeed;
     [SerializeField]
-    private float fadeSpeed;
+    private float blendAnimSpeed;
+    [SerializeField]
+    private float crossFadeAnimSpeed;
     [SerializeField]
     private float smoothInputSpeed = .2f;
     [SerializeField]
@@ -51,13 +53,13 @@ public class PlayerControl : MonoBehaviour
         {
             rB.useGravity = false;
             anim.Play("Movement");
-            anim.SetFloat("Speed", rB.velocity.magnitude);
+            anim.SetFloat("Speed", rB.velocity.magnitude, blendAnimSpeed, Time.deltaTime);
         }
         else
         {
             rB.useGravity = true;
             anim.SetFloat("Speed", 0);
-            anim.CrossFade("Falling", fadeSpeed);
+            anim.CrossFade("Falling", crossFadeAnimSpeed);
         }
     }
 

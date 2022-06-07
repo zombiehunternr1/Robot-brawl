@@ -2874,7 +2874,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameAnimations: {fileID: 9100000, guid: 24ed3f853737d1241a69f6416ee8a35c, type: 2}
   movementSpeed: 3.5
-  fadeSpeed: 0.05
+  blendAnimSpeed: 0.2
+  crossFadeAnimSpeed: 0.1
   smoothInputSpeed: 0.2
   rotationSpeed: 720
   punchDistance: 1.2
@@ -3714,7 +3715,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameAnimations: {fileID: 9100000, guid: 24ed3f853737d1241a69f6416ee8a35c, type: 2}
   movementSpeed: 3.5
-  fadeSpeed: 0.05
+  blendAnimSpeed: 0
+  crossFadeAnimSpeed: 0
   smoothInputSpeed: 0.2
   rotationSpeed: 720
   punchDistance: 1.2
