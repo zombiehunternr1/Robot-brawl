@@ -11,6 +11,8 @@ public class PlayerControl : MonoBehaviour
     [SerializeField]
     private float movementSpeed;
     [SerializeField]
+    private float fadeSpeed;
+    [SerializeField]
     private float smoothInputSpeed = .2f;
     [SerializeField]
     private float rotationSpeed;
@@ -49,13 +51,16 @@ public class PlayerControl : MonoBehaviour
         {
             rB.useGravity = false;
             rB.isKinematic = true;
+            anim.Play("Movement");
+            anim.SetFloat("Speed", rB.velocity.magnitude);
         }
         else
         {
             rB.useGravity = true;
             rB.isKinematic = false;
+            anim.SetFloat("Speed", 0);
+            anim.CrossFade("Falling", fadeSpeed);
         }
-        anim.SetFloat("Speed", rB.velocity.magnitude);
     }
 
     //Updates the players position and rotation depending on the movement direction
