@@ -50,14 +50,12 @@ public class PlayerControl : MonoBehaviour
         if (IsGrounded())
         {
             rB.useGravity = false;
-            rB.isKinematic = true;
             anim.Play("Movement");
             anim.SetFloat("Speed", rB.velocity.magnitude);
         }
         else
         {
             rB.useGravity = true;
-            rB.isKinematic = false;
             anim.SetFloat("Speed", 0);
             anim.CrossFade("Falling", fadeSpeed);
         }
@@ -72,7 +70,8 @@ public class PlayerControl : MonoBehaviour
         }
         Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
         targetRotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360 * Time.fixedDeltaTime);
-        rB.MovePosition(rB.position + moveDirection * movementSpeed * Time.fixedDeltaTime);
+        rB.AddForce(moveDirection * movementSpeed, ForceMode.Impulse);
+        //rB.MovePosition(rB.position + moveDirection * movementSpeed * Time.fixedDeltaTime);
         rB.MoveRotation(targetRotation);
     }
 
