@@ -48,11 +48,14 @@ public class PlayerControl : MonoBehaviour
         if (IsGrounded())
         {
             rB.useGravity = false;
+            rB.isKinematic = true;
         }
         else
         {
             rB.useGravity = true;
+            rB.isKinematic = false;
         }
+        anim.SetFloat("Speed", rB.velocity.magnitude);
     }
 
     //Updates the players position and rotation depending on the movement direction
@@ -66,7 +69,6 @@ public class PlayerControl : MonoBehaviour
         targetRotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360 * Time.fixedDeltaTime);
         rB.MovePosition(rB.position + moveDirection * movementSpeed * Time.fixedDeltaTime);
         rB.MoveRotation(targetRotation);
-        anim.SetFloat("Speed", rB.velocity.magnitude);
     }
 
     //Turns on the sphere collider when the animation calls this event

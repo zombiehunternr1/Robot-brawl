@@ -409,6 +409,10 @@ PrefabInstance:
       propertyPath: movementSpeed
       value: 3.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1296936543302407229, guid: 3657d916252d67f44a4add4cef7d28f6, type: 3}
+      propertyPath: distanceToGround
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 7908719709445048942, guid: 3657d916252d67f44a4add4cef7d28f6, type: 3}
       propertyPath: m_Drag
       value: 0
