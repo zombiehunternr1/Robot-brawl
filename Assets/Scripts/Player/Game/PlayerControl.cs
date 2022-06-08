@@ -11,11 +11,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField]
     private float movementSpeed;
     [SerializeField]
-    private float blendAnimSpeed;
-    [SerializeField]
     private float crossFadeAnimSpeed;
-    [SerializeField]
-    private float smoothInputSpeed = .2f;
     [SerializeField]
     private float rotationSpeed;
     [SerializeField]
@@ -29,8 +25,6 @@ public class PlayerControl : MonoBehaviour
     [SerializeField]
     float distanceToGround;
     private Rigidbody rB;
-    private Vector2 inputDirection;
-    private Vector2 smoothInputVelocity;
     private Vector3 moveDirection;
     private Animator anim;
     private bool canAttack = true;
@@ -52,8 +46,7 @@ public class PlayerControl : MonoBehaviour
         if (IsGrounded())
         {
             rB.useGravity = false;
-            anim.Play("Movement");
-            anim.SetFloat("Speed", rB.velocity.magnitude, blendAnimSpeed, Time.deltaTime);
+            anim.SetFloat("Speed", moveDirection.magnitude);
         }
         else
         {
@@ -72,8 +65,7 @@ public class PlayerControl : MonoBehaviour
         }
         Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
         targetRotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 360 * Time.fixedDeltaTime);
-        rB.AddForce(moveDirection * movementSpeed, ForceMode.Impulse);
-        //rB.MovePosition(rB.position + moveDirection * movementSpeed * Time.fixedDeltaTime);
+        rB.MovePosition(rB.position + moveDirection * movementSpeed * Time.fixedDeltaTime);
         rB.MoveRotation(targetRotation);
     }
 
@@ -115,13 +107,11 @@ public class PlayerControl : MonoBehaviour
         if (context.performed)
         {
             Vector2 rawInput = context.ReadValue<Vector2>();
-            inputDirection = Vector2.SmoothDamp(inputDirection, rawInput, ref smoothInputVelocity, smoothInputSpeed);
-            moveDirection = new Vector3(inputDirection.x, 0, inputDirection.y);
+            moveDirection = new Vector3(rawInput.x, 0, rawInput.y);
         }
         if (context.canceled)
         {
-            inputDirection = Vector3.zero;
-            moveDirection = inputDirection;
+            moveDirection = Vector3.zero;
             rB.velocity = Vector3.zero;
         }
     }
