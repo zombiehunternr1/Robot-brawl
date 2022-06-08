@@ -77,16 +77,16 @@ public class PlayerControl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //if (other.GetComponent<PlayerControl>() == null)
-        //{
-        //    return;           
-        //}
-        //if (other.GetComponent<PlayerControl>() != this)
-        //{
-        //    Vector3 targetHitDirection = new Vector3();
-        //    targetHitDirection = other.transform.position - punchCollider.transform.position.normalized;
-        //    other.GetComponent<Rigidbody>().AddForce(targetHitDirection * punchForce, ForceMode.Impulse);
-        //}
+/*        if (other.GetComponent<PlayerControl>() == null)
+        {
+            return;
+        }
+        if (other.GetComponent<PlayerControl>() != this)
+        {
+            Vector3 targetHitDirection = new Vector3();
+            targetHitDirection = other.transform.position - punchCollider.transform.position.normalized;
+            other.GetComponent<Rigidbody>().AddForce(targetHitDirection * punchForce, ForceMode.Impulse);
+        }*/
     }
 
     //Turns off the sphere collider when the animation calls this event
@@ -104,7 +104,7 @@ public class PlayerControl : MonoBehaviour
     //Gets the players movement input and stores it into a Vector3
     public void OnMovement(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && IsGrounded())
         {
             Vector2 rawInput = context.ReadValue<Vector2>();
             moveDirection = new Vector3(rawInput.x, 0, rawInput.y);
@@ -119,7 +119,7 @@ public class PlayerControl : MonoBehaviour
     //When the player wants to attack and is allowed to the can attack boolean will get set to false and the punching animation will get played
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (context.performed && canAttack)
+        if (context.performed && canAttack && IsGrounded())
         {
             canAttack = false;
             anim.Play("Attack");
