@@ -761,7 +761,6 @@ MonoBehaviour:
   movementSpeed: 3.5
   crossFadeAnimSpeed: 0.1
   rotationSpeed: 720
-  punchDistance: 1.2
   punchForce: 5
   groundCheck: {fileID: 8174714865301116089}
   groundMask:
@@ -911,7 +910,7 @@ Rigidbody:
   m_GameObject: {fileID: 1818196299168072758}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 1.5
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
@@ -931,7 +930,7 @@ Animator:
   m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 

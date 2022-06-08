@@ -15,8 +15,6 @@ public class PlayerControl : MonoBehaviour
     [SerializeField]
     private float rotationSpeed;
     [SerializeField]
-    private float punchDistance;
-    [SerializeField]
     private float punchForce;
     [SerializeField]
     private Transform groundCheck;
@@ -84,12 +82,9 @@ public class PlayerControl : MonoBehaviour
         }
         if (other.GetComponent<PlayerControl>() != this)
         {
-            //Vector3 targetHitDirection = new Vector3();
-            //targetHitDirection = other.transform.position - punchCollider.transform.position.normalized;
-            //other.GetComponent<Rigidbody>().AddForce(-targetHitDirection * punchForce, ForceMode.Impulse);
-            Vector3 dir = other.transform.position - punchCollider.transform.position.normalized;
-            dir = -dir.normalized;
-            other.GetComponent<Rigidbody>().AddForce(dir * punchForce, ForceMode.Impulse);
+            Vector3 targetHitDirection = new Vector3();
+            targetHitDirection = (other.transform.position - transform.position).normalized;
+            other.GetComponent<Rigidbody>().AddForce(targetHitDirection * punchForce, ForceMode.Impulse);
         }
     }
 
@@ -116,7 +111,6 @@ public class PlayerControl : MonoBehaviour
         if (context.canceled)
         {
             moveDirection = Vector3.zero;
-            rB.velocity = Vector3.zero;
         }
     }
 
