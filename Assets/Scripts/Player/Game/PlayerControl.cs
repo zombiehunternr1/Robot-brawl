@@ -33,6 +33,7 @@ public class PlayerControl : MonoBehaviour
     private void OnEnable()
     {
         punchCollider = GetComponentInChildren<SphereCollider>();
+        punchCollider.enabled = false;
         rB = GetComponent<Rigidbody>();
         rB.useGravity = true;
         anim = GetComponent<Animator>();
@@ -52,7 +53,7 @@ public class PlayerControl : MonoBehaviour
         {
             rB.useGravity = true;
             anim.SetFloat("Speed", 0);
-            anim.CrossFade("Falling", crossFadeAnimSpeed);
+            //anim.CrossFade("Falling", crossFadeAnimSpeed);
         }
     }
 
@@ -77,16 +78,19 @@ public class PlayerControl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-/*        if (other.GetComponent<PlayerControl>() == null)
+        if (other.GetComponent<PlayerControl>() == null)
         {
             return;
         }
         if (other.GetComponent<PlayerControl>() != this)
         {
-            Vector3 targetHitDirection = new Vector3();
-            targetHitDirection = other.transform.position - punchCollider.transform.position.normalized;
-            other.GetComponent<Rigidbody>().AddForce(targetHitDirection * punchForce, ForceMode.Impulse);
-        }*/
+            //Vector3 targetHitDirection = new Vector3();
+            //targetHitDirection = other.transform.position - punchCollider.transform.position.normalized;
+            //other.GetComponent<Rigidbody>().AddForce(-targetHitDirection * punchForce, ForceMode.Impulse);
+            Vector3 dir = other.transform.position - punchCollider.transform.position.normalized;
+            dir = -dir.normalized;
+            other.GetComponent<Rigidbody>().AddForce(dir * punchForce, ForceMode.Impulse);
+        }
     }
 
     //Turns off the sphere collider when the animation calls this event

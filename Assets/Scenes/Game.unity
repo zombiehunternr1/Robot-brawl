@@ -2282,8 +2282,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2024993699}
-  m_RootOrder: 26
+  m_Father: {fileID: 954051360}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &659167151
 GameObject:
@@ -2370,7 +2370,6 @@ Transform:
   - {fileID: 2247243941504300376}
   - {fileID: 3476602218138163351}
   - {fileID: 4163647227104190959}
-  - {fileID: 1409552048796013718}
   m_Father: {fileID: 8110279855832981155}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3591,6 +3590,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2024993699}
+  - {fileID: 645670184}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6930,7 +6930,6 @@ Transform:
   - {fileID: 233746324}
   - {fileID: 1387665292}
   - {fileID: 863580208}
-  - {fileID: 645670184}
   m_Father: {fileID: 954051360}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8139,7 +8138,7 @@ MonoBehaviour:
   crossFadeAnimSpeed: 0.1
   rotationSpeed: 720
   punchDistance: 1.2
-  punchForce: 5
+  punchForce: 10
   groundCheck: {fileID: 1409552048796013718}
   groundMask:
     serializedVersion: 2
@@ -8316,8 +8315,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 680667418}
-  m_RootOrder: 26
+  m_Father: {fileID: 8110279855832981155}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1494036416355691136
 Transform:
@@ -12330,6 +12329,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 680667418}
+  - {fileID: 1409552048796013718}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
