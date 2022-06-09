@@ -56,7 +56,6 @@ public class PlayerControl : MonoBehaviour
         {
             rB.useGravity = true;
             anim.SetFloat("Speed", 0);
-            //anim.CrossFade("Falling", crossFadeAnimSpeed);
         }
     }
 
@@ -106,10 +105,14 @@ public class PlayerControl : MonoBehaviour
         canAttack = true;
     } 
 
-    //Once this function gets called allow input will either be set to true or false depending on its previous value
-    public void SetAllowInputStatus()
+    public void AllowInput()
     {
-        allowInput = !allowInput;
+        allowInput = true;
+    }
+
+    public void DisallowInput()
+    {
+        allowInput = false;
     }
 
     //Once this function gets called the coroutine to start the dizzyness cooldown

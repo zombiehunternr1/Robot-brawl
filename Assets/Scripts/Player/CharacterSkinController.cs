@@ -9,6 +9,7 @@ public class CharacterSkinController : MonoBehaviour
     private List<Material> skinColors;
     private Renderer[] characterMaterials;
     private int skinColorIndex;
+    [SerializeField]
     private PlayerMenuNavigator playerNav;
     private Vector2 offset;
 
@@ -16,11 +17,6 @@ public class CharacterSkinController : MonoBehaviour
     {
         characterMaterials = GetComponentsInChildren<Renderer>();
         ChangeSkinType(skinColorIndex);
-    }
-
-    private void Start()
-    {
-        playerNav = GetComponent<PlayerMenuNavigator>();
     }
 
     public void NormalExpression()

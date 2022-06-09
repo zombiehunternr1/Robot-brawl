@@ -728,6 +728,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: caafbb1737cc71c48bc72729d0a96404, type: 2}
   - {fileID: 2100000, guid: eb8f01b54b4e0314baf75bd8d00d0db5, type: 2}
   - {fileID: 2100000, guid: 0e11ac2ea5787e8499107f6679d743e0, type: 2}
+  playerNav: {fileID: 2088705804971400922}
 --- !u!114 &2088705804971400922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -768,7 +769,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   distanceToGround: 0.1
-  currentTime: 0
 --- !u!114 &1583840141019756577
 MonoBehaviour:
   m_ObjectHideFlags: 0
