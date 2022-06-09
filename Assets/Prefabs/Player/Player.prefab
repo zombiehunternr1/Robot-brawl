@@ -762,11 +762,13 @@ MonoBehaviour:
   crossFadeAnimSpeed: 0.1
   rotationSpeed: 720
   punchForce: 5
+  dizzynessCooldown: 3
   groundCheck: {fileID: 8174714865301116089}
   groundMask:
     serializedVersion: 2
     m_Bits: 1
   distanceToGround: 0.1
+  currentTime: 0
 --- !u!114 &1583840141019756577
 MonoBehaviour:
   m_ObjectHideFlags: 0

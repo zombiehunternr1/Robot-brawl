@@ -61,14 +61,14 @@ ModelImporter:
       curves: []
       events:
       - time: 0
-        functionName: SetStunnedStatus
+        functionName: SetAllowInputStatus
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 33a037534b84dd943bd9ea4b99e784cd, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.62706274
-        functionName: SetStunnedStatus
+        functionName: SetAllowInputStatus
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 33a037534b84dd943bd9ea4b99e784cd, type: 3}
         floatParameter: 0

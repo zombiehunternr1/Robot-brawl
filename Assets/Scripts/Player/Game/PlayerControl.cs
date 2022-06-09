@@ -17,6 +17,8 @@ public class PlayerControl : MonoBehaviour
     [SerializeField]
     private float punchForce;
     [SerializeField]
+    private float dizzynessCooldown;
+    [SerializeField]
     private Transform groundCheck;
     [SerializeField]
     LayerMask groundMask;
@@ -26,11 +28,13 @@ public class PlayerControl : MonoBehaviour
     private Vector3 moveDirection;
     private Animator anim;
     private bool canAttack = true;
-    private bool isStunned;
+    private bool allowInput;
     private SphereCollider punchCollider;
+    private CharacterSkinController playerSkin;
 
     private void OnEnable()
     {
+        playerSkin = GetComponent<CharacterSkinController>();
         punchCollider = GetComponentInChildren<SphereCollider>();
         punchCollider.enabled = false;
         rB = GetComponent<Rigidbody>();
@@ -102,16 +106,22 @@ public class PlayerControl : MonoBehaviour
         canAttack = true;
     } 
 
-    //Once the player gets punched the stunned animation plays and are unable to move. Once the animation ends they can move again
-    public void SetStunnedStatus()
+    //Once this function gets called allow input will either be set to true or false depending on its previous value
+    public void SetAllowInputStatus()
     {
-        isStunned = !isStunned;
+        allowInput = !allowInput;
+    }
+
+    //Once this function gets called the coroutine to start the dizzyness cooldown
+    public void StartDizzynessEffect()
+    {
+        StartCoroutine(DizzynessCooldown());
     }
 
     //Gets the players movement input and stores it into a Vector3
     public void OnMovement(InputAction.CallbackContext context)
     {
-        if (context.performed && IsGrounded() && !isStunned)
+        if (context.performed && IsGrounded() && allowInput)
         {
             Vector2 rawInput = context.ReadValue<Vector2>();
             moveDirection = new Vector3(rawInput.x, 0, rawInput.y);
@@ -125,7 +135,7 @@ public class PlayerControl : MonoBehaviour
     //When the player wants to attack they must first be allowed to
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (context.performed && canAttack && IsGrounded() && !isStunned)
+        if (context.performed && canAttack && IsGrounded() && allowInput)
         {
             canAttack = false;
             anim.Play("Attack");
@@ -140,6 +150,23 @@ public class PlayerControl : MonoBehaviour
     //Countdown for how long the player stays in dizzyness mode before being able to move again.
     private IEnumerator DizzynessCooldown()
     {
-        yield return null;
+        float currentTime = 0;
+        bool isDizzy = true;
+        allowInput = false;
+        playerSkin.StunnedExpression();
+        anim.Play("Dizzy");
+        while(isDizzy)
+        {
+            currentTime += Time.deltaTime;
+            if(currentTime > dizzynessCooldown)
+            {
+                isDizzy = false;
+                currentTime = 0;
+            }
+            yield return currentTime;
+        }
+        allowInput = true;
+        playerSkin.NormalExpression();
+        anim.CrossFade("Game idle", crossFadeAnimSpeed);
     }
 }

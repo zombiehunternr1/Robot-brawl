@@ -7,47 +7,43 @@ public class CharacterSkinController : MonoBehaviour
 {
     [SerializeField]
     private List<Material> skinColors;
-    private enum EyePosition { normal, happy, angry, dead}
-    private EyePosition eyeState;
     private Renderer[] characterMaterials;
     private int skinColorIndex;
     private PlayerMenuNavigator playerNav;
+    private Vector2 offset;
+
+    private void OnEnable()
+    {
+        characterMaterials = GetComponentsInChildren<Renderer>();
+        ChangeSkinType(skinColorIndex);
+    }
 
     private void Start()
     {
         playerNav = GetComponent<PlayerMenuNavigator>();
-        characterMaterials = GetComponentsInChildren<Renderer>();
-        ChangeEyeOffset(eyeState);
-        ChangeSkinType(skinColorIndex);
     }
 
-    private void ChangeEyeOffset(EyePosition pos)
+    public void NormalExpression()
     {
-        Vector2 offset = Vector2.zero;
+        offset = new Vector2(0, 0);
+        SetEyesExpression(offset);
+    }
 
-        switch (pos)
-        {
-            case EyePosition.normal:
-                offset = new Vector2(0, 0);
-                break;
-            case EyePosition.happy:
-                offset = new Vector2(.33f, 0);
-                break;
-            case EyePosition.angry:
-                offset = new Vector2(.66f, 0);
-                break;
-            case EyePosition.dead:
-                offset = new Vector2(.33f, .66f);
-                break;
-            default:
-                break;
-        }
+    public void StunnedExpression()
+    {
+        offset = new Vector2(0, .66f);
+        SetEyesExpression(offset);
+    }
+
+    private void SetEyesExpression(Vector2 offset)
+    {
         for (int i = 0; i < characterMaterials.Length; i++)
         {
             if (characterMaterials[i].transform.CompareTag("Eyes"))
-                characterMaterials[i].material.SetTextureOffset("_MainTex", offset);
+                characterMaterials[i].material.mainTextureOffset = offset;
         }
     }
+
     private void ChangeSkinType(int index)
     {
         for (int i = 0; i < characterMaterials.Length; i++){
