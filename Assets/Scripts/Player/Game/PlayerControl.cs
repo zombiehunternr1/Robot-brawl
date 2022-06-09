@@ -36,12 +36,13 @@ public class PlayerControl : MonoBehaviour
     {
         playerSkin = GetComponent<CharacterSkinController>();
         punchCollider = GetComponentInChildren<SphereCollider>();
-        punchCollider.enabled = false;
-        rB = GetComponent<Rigidbody>();
-        rB.useGravity = true;
-        anim = GetComponent<Animator>();
-        anim.runtimeAnimatorController = gameAnimations;
         PlayerInput playerInput = GetComponent<PlayerInput>();
+        rB = GetComponent<Rigidbody>();
+        anim = GetComponent<Animator>();
+        punchCollider.enabled = false;
+        rB.useGravity = true;
+        allowInput = true;
+        anim.runtimeAnimatorController = gameAnimations;
         playerInput.SwitchCurrentActionMap("Game");       
     }
     //Enables or disables the gravity if the player is currently in the air or not
