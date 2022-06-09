@@ -136,4 +136,10 @@ public class PlayerControl : MonoBehaviour
     {
         return Physics.CheckSphere(groundCheck.position, distanceToGround, groundMask);
     }
+
+    //Countdown for how long the player stays in dizzyness mode before being able to move again.
+    private IEnumerator DizzynessCooldown()
+    {
+        yield return null;
+    }
 }
