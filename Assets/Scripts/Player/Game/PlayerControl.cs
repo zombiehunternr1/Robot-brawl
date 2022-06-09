@@ -26,6 +26,7 @@ public class PlayerControl : MonoBehaviour
     private Vector3 moveDirection;
     private Animator anim;
     private bool canAttack = true;
+    private bool isStunned;
     private SphereCollider punchCollider;
 
     private void OnEnable()
@@ -85,6 +86,7 @@ public class PlayerControl : MonoBehaviour
             Vector3 targetHitDirection = new Vector3();
             targetHitDirection = (other.transform.position - transform.position).normalized;
             other.GetComponent<Rigidbody>().AddForce(targetHitDirection * punchForce, ForceMode.Impulse);
+            other.GetComponent<Animator>().Play("Pushed");
         }
     }
 
@@ -100,10 +102,16 @@ public class PlayerControl : MonoBehaviour
         canAttack = true;
     } 
 
+    //Once the player gets punched the stunned animation plays and are unable to move. Once the animation ends they can move again
+    public void SetStunnedStatus()
+    {
+        isStunned = !isStunned;
+    }
+
     //Gets the players movement input and stores it into a Vector3
     public void OnMovement(InputAction.CallbackContext context)
     {
-        if (context.performed && IsGrounded())
+        if (context.performed && IsGrounded() && !isStunned)
         {
             Vector2 rawInput = context.ReadValue<Vector2>();
             moveDirection = new Vector3(rawInput.x, 0, rawInput.y);
@@ -114,10 +122,10 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    //When the player wants to attack and is allowed to the can attack boolean will get set to false and the punching animation will get played
+    //When the player wants to attack they must first be allowed to
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (context.performed && canAttack && IsGrounded())
+        if (context.performed && canAttack && IsGrounded() && !isStunned)
         {
             canAttack = false;
             anim.Play("Attack");
