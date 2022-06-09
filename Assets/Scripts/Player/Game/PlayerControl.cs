@@ -116,6 +116,14 @@ public class PlayerControl : MonoBehaviour
         allowInput = false;
     }
 
+    public void Defeated()
+    {
+        allowInput = false;
+        rB.useGravity = false;
+        anim.Play("Falling");
+        this.enabled = false;
+    }
+
     //Once this function gets called the coroutine to start the dizzyness cooldown
     public void StartDizzynessEffect()
     {
