@@ -23,7 +23,7 @@ public class LoadMinigameEvent : UnityEvent
 
 }
 [System.Serializable]
-public class StartMinigameEvent : UnityEvent
+public class SwitchControlsEvent : UnityEvent
 {
 
 }
@@ -32,7 +32,7 @@ public class PlayerJoinManager : MonoBehaviour
     public static ChangePlayerReadyStateEvent changePlayerReadyStatus;
     public static LeavePlayerEvent leavePlayerEvent;
     public static LoadMinigameEvent loadMinigameEvent;
-    public static StartMinigameEvent switchControlsEvent;
+    public static SwitchControlsEvent switchControlsEvent;
     public static bool allPlayersReady { get; set; }
 
     [SerializeField]
@@ -69,7 +69,7 @@ public class PlayerJoinManager : MonoBehaviour
         }
         if(switchControlsEvent == null)
         {
-            switchControlsEvent = new StartMinigameEvent();
+            switchControlsEvent = new SwitchControlsEvent();
             switchControlsEvent.AddListener(SwitchControls);
         }
         DontDestroyOnLoad(this);
@@ -150,6 +150,16 @@ public class PlayerJoinManager : MonoBehaviour
 
     private void LoadMiniGameScene()
     {
+        for (int i = 0; i < playersJoinedPrefabs.Count; i++)
+        {
+            for (int j = 0; j < playersJoinedSO.Count; j++)
+            {
+                if (playersJoinedSO[j].PlayerID != 0)
+                {
+                    playersJoinedPrefabs[i].transform.position = playersJoinedSO[j].spawnPosition;
+                }
+            }
+        }
         SceneManager.LoadScene("Game");
     }
 
@@ -158,6 +168,6 @@ public class PlayerJoinManager : MonoBehaviour
         foreach (PlayerMenuNavigator player in playersJoinedPrefabs)
         {
             player.SwitchToMinigameScript();
-        }       
+        }
     }
 }

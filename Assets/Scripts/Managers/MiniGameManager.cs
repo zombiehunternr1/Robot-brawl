@@ -6,14 +6,14 @@ using UnityEngine.Events;
 using TMPro;
 
 [System.Serializable]
-public class hidePanelEvent : UnityEvent
+public class StartMinigameEvent : UnityEvent
 {
 
 }
 
 public class MiniGameManager : MonoBehaviour
 {
-    public static hidePanelEvent hidePanelEvent;
+    public static StartMinigameEvent startMinigameCountdownEvent;
 
     [SerializeField]
     private RectTransform MinigameRulesPanel;
@@ -22,16 +22,16 @@ public class MiniGameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        if(hidePanelEvent == null)
+        if(startMinigameCountdownEvent == null)
         {
-            hidePanelEvent = new hidePanelEvent();
-            hidePanelEvent.AddListener(StartCountdown);
+            startMinigameCountdownEvent = new StartMinigameEvent();
+            startMinigameCountdownEvent.AddListener(StartCountdown);
         }
     }
 
     private void OnDisable()
     {
-        hidePanelEvent.RemoveAllListeners();
+        startMinigameCountdownEvent.RemoveAllListeners();
     }
 
     public void StartCountdown()

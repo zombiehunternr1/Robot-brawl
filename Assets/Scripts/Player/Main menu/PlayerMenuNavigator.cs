@@ -59,7 +59,7 @@ public class PlayerMenuNavigator : MonoBehaviour
         }
         else if (context.performed && PlayerJoinManager.allPlayersReady && !canInteract)
         {
-            MiniGameManager.hidePanelEvent.Invoke();
+            MiniGameManager.startMinigameCountdownEvent.Invoke();
         }
     }
 
@@ -80,6 +80,7 @@ public class PlayerMenuNavigator : MonoBehaviour
     public void SwitchToMinigameScript()
     {
         playerControl.enabled = true;
+        playerControl.AllowInput();
         this.enabled = false;
     }
 

@@ -9,18 +9,23 @@ public class SpawnPlayerManager : MonoBehaviour
     private List<Transform> SpawnPoints;
     [SerializeField]
     private List<PlayerInfo> playerInfo;
-    private void Start()
+
+    private int SpawnPointCount;
+    
+    private void OnEnable()
     {
-        //PlayerInitialisation();
+        SpawnPointCount = 0;
+        PlayerInitialisation();
     }
 
     private void PlayerInitialisation()
-    {
+    {        
         for(int i = 0; i < playerInfo.Count; i++)
         {
             if(playerInfo[i].PlayerID != 0)
             {
-
+                playerInfo[i].spawnPosition = SpawnPoints[SpawnPointCount].position;
+                SpawnPointCount++;
             }
         }
     }

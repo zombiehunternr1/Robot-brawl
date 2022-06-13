@@ -41,10 +41,10 @@ public class PlayerControl : MonoBehaviour
         anim = GetComponent<Animator>();
         punchCollider.enabled = false;
         rB.useGravity = true;
-        allowInput = true;
         anim.runtimeAnimatorController = gameAnimations;
         playerInput.SwitchCurrentActionMap("Game");
     }
+
     //Enables or disables the gravity if the player is currently in the air or not
     private void Update()
     {
