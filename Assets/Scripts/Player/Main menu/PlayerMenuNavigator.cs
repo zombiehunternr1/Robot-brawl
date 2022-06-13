@@ -60,7 +60,6 @@ public class PlayerMenuNavigator : MonoBehaviour
         else if (context.performed && PlayerJoinManager.allPlayersReady && !canInteract)
         {
             MiniGameManager.hidePanelEvent.Invoke();
-            PlayerJoinManager.switchControlsEvent.Invoke();
         }
     }
 
