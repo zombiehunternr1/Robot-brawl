@@ -43,7 +43,7 @@ public class PlayerControl : MonoBehaviour
         rB.useGravity = true;
         allowInput = true;
         anim.runtimeAnimatorController = gameAnimations;
-        playerInput.SwitchCurrentActionMap("Game");       
+        playerInput.SwitchCurrentActionMap("Game");
     }
     //Enables or disables the gravity if the player is currently in the air or not
     private void Update()

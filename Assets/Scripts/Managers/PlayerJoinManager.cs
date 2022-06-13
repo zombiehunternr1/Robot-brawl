@@ -18,7 +18,12 @@ public class LeavePlayerEvent : UnityEvent<PlayerInput>
 
 }
 [System.Serializable]
-public class StartGameEvent : UnityEvent
+public class LoadMinigameEvent : UnityEvent
+{
+
+}
+[System.Serializable]
+public class StartMinigameEvent : UnityEvent
 {
 
 }
@@ -26,7 +31,8 @@ public class PlayerJoinManager : MonoBehaviour
 {
     public static ChangePlayerReadyStateEvent changePlayerReadyStatus;
     public static LeavePlayerEvent leavePlayerEvent;
-    public static StartGameEvent startGameEvent;
+    public static LoadMinigameEvent loadMinigameEvent;
+    public static StartMinigameEvent switchControlsEvent;
     public static bool allPlayersReady { get; set; }
 
     [SerializeField]
@@ -56,10 +62,15 @@ public class PlayerJoinManager : MonoBehaviour
             leavePlayerEvent = new LeavePlayerEvent();
             leavePlayerEvent.AddListener(LeavePlayerEvent);
         }
-        if(startGameEvent == null)
+        if(loadMinigameEvent == null)
         {
-            startGameEvent = new StartGameEvent();
-            startGameEvent.AddListener(StartGame);
+            loadMinigameEvent = new LoadMinigameEvent();
+            loadMinigameEvent.AddListener(LoadMiniGameScene);
+        }
+        if(switchControlsEvent == null)
+        {
+            switchControlsEvent = new StartMinigameEvent();
+            switchControlsEvent.AddListener(SwitchControls);
         }
         DontDestroyOnLoad(this);
     }
@@ -68,7 +79,8 @@ public class PlayerJoinManager : MonoBehaviour
     {
         changePlayerReadyStatus.RemoveAllListeners();
         leavePlayerEvent.RemoveAllListeners();
-        startGameEvent.RemoveAllListeners();
+        loadMinigameEvent.RemoveAllListeners();
+        switchControlsEvent.RemoveAllListeners();
         if (!allPlayersReady)
         {
             for (int i = 0; i < playersJoinedSO.Count; i++)
@@ -136,12 +148,16 @@ public class PlayerJoinManager : MonoBehaviour
         mainMenuReference.CheckStartDisplay(allPlayersReady);
     }
 
-    private void StartGame()
+    private void LoadMiniGameScene()
     {
-        foreach(PlayerMenuNavigator player in playersJoinedPrefabs)
-        {
-            player.SwitchControls();
-        }
         SceneManager.LoadScene("Game");
+    }
+
+    private void SwitchControls()
+    {
+        foreach (PlayerMenuNavigator player in playersJoinedPrefabs)
+        {
+            player.SwitchToMinigameScript();
+        }       
     }
 }

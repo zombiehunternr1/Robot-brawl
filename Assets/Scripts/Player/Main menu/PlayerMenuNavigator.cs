@@ -55,7 +55,12 @@ public class PlayerMenuNavigator : MonoBehaviour
         else if (context.performed && PlayerJoinManager.allPlayersReady && canInteract)
         {
             canInteract = false;
-            PlayerJoinManager.startGameEvent.Invoke();
+            PlayerJoinManager.loadMinigameEvent.Invoke();
+        }
+        else if (context.performed && PlayerJoinManager.allPlayersReady && !canInteract)
+        {
+            MiniGameManager.hidePanelEvent.Invoke();
+            PlayerJoinManager.switchControlsEvent.Invoke();
         }
     }
 
@@ -73,7 +78,7 @@ public class PlayerMenuNavigator : MonoBehaviour
         }
     }
 
-    public void SwitchControls()
+    public void SwitchToMinigameScript()
     {
         playerControl.enabled = true;
         this.enabled = false;
