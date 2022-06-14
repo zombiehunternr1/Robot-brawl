@@ -19,15 +19,33 @@ public class MiniGameManager : MonoBehaviour
     private RectTransform MinigameRulesPanel;
     [SerializeField]
     private TextMeshProUGUI countdownText;
+    [SerializeField]
+    private Transform tilesReference;
+
+    [SerializeField]
+    private float minInterval;
+    [SerializeField]
+    private float maxInterval;
+
+    private bool gameFinished { get; set; }
+    private float timeBeforeCollapsing;
+    private List<Transform> tilesList;
 
     private void OnEnable()
     {
+        gameFinished = false;
         if(startMinigameCountdownEvent == null)
         {
             startMinigameCountdownEvent = new StartMinigameEvent();
             startMinigameCountdownEvent.AddListener(StartCountdown);
         }
+        GetTiles();
         PlayerJoinManager.positionPlayersEvent.Invoke();
+    }
+    public void StartCountdown()
+    {
+        MinigameRulesPanel.gameObject.SetActive(false);
+        StartCoroutine(Countdown());
     }
 
     private void OnDisable()
@@ -35,10 +53,26 @@ public class MiniGameManager : MonoBehaviour
         startMinigameCountdownEvent.RemoveAllListeners();
     }
 
-    public void StartCountdown()
+    private void GetTiles()
     {
-        MinigameRulesPanel.gameObject.SetActive(false);
-        StartCoroutine(Countdown());
+        tilesList = new List<Transform>();
+        foreach(Transform tile in tilesReference)
+        {
+            tilesList.Add(tile);
+        }
+        StartCoroutine(TileSystem());
+    }
+
+    IEnumerator TileSystem()
+    {
+        while (!gameFinished)
+        {
+            timeBeforeCollapsing = Random.Range(minInterval, maxInterval);
+            yield return new WaitForSeconds(timeBeforeCollapsing);
+            Debug.Log("Tile is collapsing");
+            yield return new WaitForSeconds(2);
+            Debug.Log("Tile collapsed");
+        }
     }
 
     IEnumerator Countdown()
@@ -51,8 +85,9 @@ public class MiniGameManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         countdownText.text = "Go";
         PlayerJoinManager.switchControlsEvent.Invoke();
+        StartCoroutine(TileSystem());
         yield return new WaitForSeconds(1);
         countdownText.text = "";
-        StopAllCoroutines();
+        StopCoroutine(Countdown());
     }
 }
