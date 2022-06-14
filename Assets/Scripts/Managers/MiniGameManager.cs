@@ -30,7 +30,6 @@ public class MiniGameManager : MonoBehaviour
     private bool gameFinished { get; set; }
     private float timeBeforeCollapsing;
     private int selectedTile;
-    [SerializeField]
     private List<Tile> tilesList;
 
     private void OnEnable()
@@ -42,7 +41,7 @@ public class MiniGameManager : MonoBehaviour
             startMinigameCountdownEvent.AddListener(StartCountdown);
         }
         GetTiles();
-        //PlayerJoinManager.positionPlayersEvent.Invoke();
+        PlayerJoinManager.positionPlayersEvent.Invoke();
     }
     public void StartCountdown()
     {
@@ -62,7 +61,7 @@ public class MiniGameManager : MonoBehaviour
         {
             tilesList.Add(tile);
         }
-        StartCoroutine(TileSystem());
+        //StartCoroutine(TileSystem());
     }
 
     IEnumerator TileSystem()
