@@ -29,7 +29,9 @@ public class MiniGameManager : MonoBehaviour
 
     private bool gameFinished { get; set; }
     private float timeBeforeCollapsing;
-    private List<Transform> tilesList;
+    private int selectedTile;
+    [SerializeField]
+    private List<Tile> tilesList;
 
     private void OnEnable()
     {
@@ -40,7 +42,7 @@ public class MiniGameManager : MonoBehaviour
             startMinigameCountdownEvent.AddListener(StartCountdown);
         }
         GetTiles();
-        PlayerJoinManager.positionPlayersEvent.Invoke();
+        //PlayerJoinManager.positionPlayersEvent.Invoke();
     }
     public void StartCountdown()
     {
@@ -55,8 +57,8 @@ public class MiniGameManager : MonoBehaviour
 
     private void GetTiles()
     {
-        tilesList = new List<Transform>();
-        foreach(Transform tile in tilesReference)
+        tilesList = new List<Tile>();
+        foreach(Tile tile in tilesReference.GetComponentsInChildren<Tile>())
         {
             tilesList.Add(tile);
         }
@@ -69,9 +71,12 @@ public class MiniGameManager : MonoBehaviour
         {
             timeBeforeCollapsing = Random.Range(minInterval, maxInterval);
             yield return new WaitForSeconds(timeBeforeCollapsing);
-            Debug.Log("Tile is collapsing");
-            yield return new WaitForSeconds(2);
-            Debug.Log("Tile collapsed");
+            selectedTile = Random.Range(0, tilesList.Count - 1);
+            if (tilesList[selectedTile].isTargetable)
+            {
+                tilesList[selectedTile].isTargetable = false;
+                tilesList[selectedTile].StartShaking();
+            }
         }
     }
 

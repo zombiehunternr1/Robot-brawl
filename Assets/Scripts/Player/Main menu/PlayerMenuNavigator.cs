@@ -92,7 +92,7 @@ public class PlayerMenuNavigator : MonoBehaviour
             while (transform.position != spawnPos)
             {
                 transform.position = Vector3.Lerp(transform.position, spawnPos, Time.deltaTime * moveSpeed);
-                yield return transform.position;
+                yield return null;
             }
             transform.position = spawnPos;
             canInteract = true;
@@ -109,7 +109,7 @@ public class PlayerMenuNavigator : MonoBehaviour
             while (transform.position != new Vector3(spawnPos.x, -3.5f, spawnPos.z))
             {
                 transform.position = Vector3.Lerp(transform.position, new Vector3(spawnPos.x, -3.5f, spawnPos.y), Time.deltaTime * moveSpeed * leaveSpeed);
-                yield return transform.position;
+                yield return null;
             }
             transform.position = new Vector3(spawnPos.x, -3.5f, spawnPos.z);
             Destroy(gameObject);
