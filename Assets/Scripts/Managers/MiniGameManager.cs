@@ -27,6 +27,7 @@ public class MiniGameManager : MonoBehaviour
             startMinigameCountdownEvent = new StartMinigameEvent();
             startMinigameCountdownEvent.AddListener(StartCountdown);
         }
+        PlayerJoinManager.positionPlayersEvent.Invoke();
     }
 
     private void OnDisable()

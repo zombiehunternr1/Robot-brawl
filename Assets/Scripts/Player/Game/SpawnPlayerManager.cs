@@ -15,10 +15,10 @@ public class SpawnPlayerManager : MonoBehaviour
     private void OnEnable()
     {
         SpawnPointCount = 0;
-        PlayerInitialisation();
+        SetPlayerSpawnPosition();
     }
 
-    private void PlayerInitialisation()
+    private void SetPlayerSpawnPosition()
     {        
         for(int i = 0; i < playerInfo.Count; i++)
         {
