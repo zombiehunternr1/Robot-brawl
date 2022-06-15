@@ -37,7 +37,7 @@ public class MiniGameManager : MonoBehaviour
     private int maximumPoolCapacity;
     
     private bool gameFinished { get; set; }
-    private float timeBeforeCollapsing;
+    private float timeBeforeEventTrigger;
     private int selectedTile;
     private List<Tile> tilesList;
     private ObjectPool<Projectile> projectilePool;
@@ -53,6 +53,10 @@ public class MiniGameManager : MonoBehaviour
         GetTiles();
         CreateProjectilePool();
         //PlayerJoinManager.positionPlayersEvent.Invoke();
+    }
+    private void OnDisable()
+    {
+        startMinigameCountdownEvent.RemoveAllListeners();
     }
     private void CreateProjectilePool()
     {
@@ -73,17 +77,6 @@ public class MiniGameManager : MonoBehaviour
         StartCoroutine(ProjectileSystem());
     }
 
-    public void StartCountdown()
-    {
-        MinigameRulesPanel.gameObject.SetActive(false);
-        StartCoroutine(Countdown());
-    }
-
-    private void OnDisable()
-    {
-        startMinigameCountdownEvent.RemoveAllListeners();
-    }
-
     private void GetTiles()
     {
         tilesList = new List<Tile>();
@@ -91,7 +84,7 @@ public class MiniGameManager : MonoBehaviour
         {
             tilesList.Add(tile);
         }
-        //StartCoroutine(TileSystem());
+        StartCoroutine(TileSystem());
     }
 
     private void ReleaseProjectile(Projectile projectile)
@@ -99,12 +92,30 @@ public class MiniGameManager : MonoBehaviour
         projectilePool.Release(projectile);
     }
 
+    private void SetupProjectiles()
+    {
+        for (int i = 0; i < spawnAmount; i++)
+        {
+            Projectile projectile = projectilePool.Get();
+            projectile.transform.parent = tilesList[i].transform;
+            projectile.transform.position = new Vector3(tilesList[i].transform.position.x, tilesList[i].transform.position.y + 5, tilesList[i].transform.position.z);
+            projectile.setReleaseAction(ReleaseProjectile);
+            projectile.gameObject.SetActive(false);
+        }
+    }
+
+    public void StartCountdown()
+    {
+        MinigameRulesPanel.gameObject.SetActive(false);
+        StartCoroutine(Countdown());
+    }
+
     IEnumerator TileSystem()
     {
         while (!gameFinished)
         {
-            timeBeforeCollapsing = Random.Range(minInterval, maxInterval);
-            yield return new WaitForSeconds(timeBeforeCollapsing);
+            timeBeforeEventTrigger = Random.Range(minInterval, maxInterval);
+            yield return new WaitForSeconds(timeBeforeEventTrigger);
             selectedTile = Random.Range(0, tilesList.Count - 1);
             if (tilesList[selectedTile].isTargetable)
             {
@@ -118,8 +129,8 @@ public class MiniGameManager : MonoBehaviour
         SetupProjectiles();
         while (!gameFinished)
         {
-            timeBeforeCollapsing = Random.Range(minInterval, maxInterval);
-            yield return new WaitForSeconds(timeBeforeCollapsing);
+            timeBeforeEventTrigger = Random.Range(minInterval, maxInterval);
+            yield return new WaitForSeconds(timeBeforeEventTrigger);
             selectedTile = Random.Range(0, projectilePool.CountAll);
             if (tilesList[selectedTile].isTargetable)
             {
@@ -127,18 +138,6 @@ public class MiniGameManager : MonoBehaviour
                 int projectile = tilesList[selectedTile].transform.childCount - 1;
                 tilesList[selectedTile].transform.GetChild(projectile).gameObject.SetActive(true);
             }
-        }
-    }
-
-    private void SetupProjectiles()
-    {
-        for (int i = 0; i < spawnAmount; i++)
-        {
-            Projectile projectile = projectilePool.Get();
-            projectile.transform.parent = tilesList[i].transform;
-            projectile.transform.position = new Vector3(tilesList[i].transform.position.x, tilesList[i].transform.position.y + 5, tilesList[i].transform.position.z);
-            projectile.setReleaseAction(ReleaseProjectile);
-            projectile.gameObject.SetActive(false);
         }
     }
 
