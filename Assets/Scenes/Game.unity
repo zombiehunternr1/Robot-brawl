@@ -1616,7 +1616,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 2147483647
   m_RenderingLayerMask: 1
   m_Lightmapping: 1
   m_LightShadowCasterMode: 0
@@ -2542,13 +2542,13 @@ MonoBehaviour:
   MinigameRulesPanel: {fileID: 607678283}
   countdownText: {fileID: 1486008376}
   tilesReference: {fileID: 1174084756}
-  projectileReference: {fileID: 1317579005}
   minInterval: 2
   maxInterval: 10
   projectilePrefab: {fileID: 2923257019494562571, guid: 2587b640c1fc88f46a5f3753568706ff, type: 3}
   spawnAmount: 0
   defaultPoolCapacity: 10
   maximumPoolCapacity: 25
+  projectileHeight: 10
 --- !u!1001 &1117764676
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8912,6 +8912,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6890296064089002497, guid: fae3dc00e2ce24d46b48bdc199378643, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9207637065058572563, guid: fae3dc00e2ce24d46b48bdc199378643, type: 3}
+      propertyPath: m_StaticShadowCaster
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

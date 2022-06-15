@@ -35,7 +35,9 @@ public class MiniGameManager : MonoBehaviour
     private int defaultPoolCapacity;
     [SerializeField]
     private int maximumPoolCapacity;
-    
+    [SerializeField]
+    private float projectileHeight;
+
     private bool gameFinished { get; set; }
     private float timeBeforeEventTrigger;
     private int selectedTile;
@@ -98,7 +100,7 @@ public class MiniGameManager : MonoBehaviour
         {
             Projectile projectile = projectilePool.Get();
             projectile.transform.parent = tilesList[i].transform;
-            projectile.transform.position = new Vector3(tilesList[i].transform.position.x, tilesList[i].transform.position.y + 5, tilesList[i].transform.position.z);
+            projectile.transform.position = new Vector3(tilesList[i].transform.position.x, tilesList[i].transform.position.y + projectileHeight, tilesList[i].transform.position.z);
             projectile.setReleaseAction(ReleaseProjectile);
             projectile.gameObject.SetActive(false);
         }
