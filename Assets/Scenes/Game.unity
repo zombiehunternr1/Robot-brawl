@@ -1946,7 +1946,7 @@ Transform:
   - {fileID: 364308201}
   - {fileID: 1334337933}
   m_Father: {fileID: 1058924626}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &798828545
 MonoBehaviour:
@@ -2520,9 +2520,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 798828544}
   - {fileID: 1641265664}
+  - {fileID: 798828544}
   - {fileID: 1174084756}
+  - {fileID: 1317579005}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2541,8 +2542,13 @@ MonoBehaviour:
   MinigameRulesPanel: {fileID: 607678283}
   countdownText: {fileID: 1486008376}
   tilesReference: {fileID: 1174084756}
+  projectileReference: {fileID: 1317579005}
   minInterval: 2
   maxInterval: 10
+  projectilePrefab: {fileID: 2923257019494562571, guid: 2587b640c1fc88f46a5f3753568706ff, type: 3}
+  spawnAmount: 0
+  defaultPoolCapacity: 10
+  maximumPoolCapacity: 25
 --- !u!1001 &1117764676
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2898,6 +2904,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6890296064089002497, guid: fae3dc00e2ce24d46b48bdc199378643, type: 3}
   m_PrefabInstance: {fileID: 1305632786}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1317579004
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1317579005}
+  m_Layer: 0
+  m_Name: Projectiles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1317579005
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317579004}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1058924626}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1334337932
 GameObject:
   m_ObjectHideFlags: 0
@@ -3621,7 +3658,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1058924626}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1641265665
 BoxCollider:

@@ -8,12 +8,12 @@ public class Tile : MonoBehaviour
     [SerializeField]
     private Transform modelTransform;
     [SerializeField]
+    private float crossFadeSpeed;
+    [SerializeField]
     private float shakeAmount;
     [SerializeField]
     private float shakeDuration;
-    [SerializeField]
-    private float crossFadeSpeed;
-    private float currentTime;
+    private float currentShakeTime;
 
     private Animator anim;
     private Vector3 originPos;
@@ -34,14 +34,14 @@ public class Tile : MonoBehaviour
 
     IEnumerator ShakingEffect()
     {
-        while(currentTime < shakeDuration)
+        while(currentShakeTime < shakeDuration)
         {
             modelTransform.localPosition = originPos + Random.insideUnitSphere * shakeAmount;
             modelTransform.localRotation = new Quaternion(originRot.x, originRot.y, Random.Range(0, shakeAmount), 0);
-            currentTime += Time.deltaTime;
+            currentShakeTime += Time.deltaTime;
             yield return null;
         }
-        currentTime = 0;
+        currentShakeTime = 0;
         modelTransform.localPosition = originPos;
         modelTransform.localRotation = originRot;
         yield return new WaitForSeconds(2);

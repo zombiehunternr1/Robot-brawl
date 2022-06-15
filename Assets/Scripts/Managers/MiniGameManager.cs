@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.Pool;
 using TMPro;
 
 [System.Serializable]
@@ -21,16 +22,25 @@ public class MiniGameManager : MonoBehaviour
     private TextMeshProUGUI countdownText;
     [SerializeField]
     private Transform tilesReference;
-
     [SerializeField]
     private float minInterval;
     [SerializeField]
     private float maxInterval;
 
+    [SerializeField]
+    private Projectile projectilePrefab;
+    [SerializeField]
+    private int spawnAmount;
+    [SerializeField]
+    private int defaultPoolCapacity;
+    [SerializeField]
+    private int maximumPoolCapacity;
+    
     private bool gameFinished { get; set; }
     private float timeBeforeCollapsing;
     private int selectedTile;
     private List<Tile> tilesList;
+    private ObjectPool<Projectile> projectilePool;
 
     private void OnEnable()
     {
@@ -41,8 +51,28 @@ public class MiniGameManager : MonoBehaviour
             startMinigameCountdownEvent.AddListener(StartCountdown);
         }
         GetTiles();
-        PlayerJoinManager.positionPlayersEvent.Invoke();
+        CreateProjectilePool();
+        //PlayerJoinManager.positionPlayersEvent.Invoke();
     }
+    private void CreateProjectilePool()
+    {
+        spawnAmount = tilesList.Count;
+        projectilePool = new ObjectPool<Projectile>(() =>
+        {
+            return Instantiate(projectilePrefab);
+        }, projectile =>
+        {
+            projectile.gameObject.SetActive(true);
+        }, projectile =>
+        {
+            projectile.gameObject.SetActive(false);
+        }, projectile =>
+        {
+            Destroy(projectile.gameObject);
+        }, false, defaultPoolCapacity, maximumPoolCapacity);
+        StartCoroutine(ProjectileSystem());
+    }
+
     public void StartCountdown()
     {
         MinigameRulesPanel.gameObject.SetActive(false);
@@ -64,6 +94,11 @@ public class MiniGameManager : MonoBehaviour
         //StartCoroutine(TileSystem());
     }
 
+    private void ReleaseProjectile(Projectile projectile)
+    {
+        projectilePool.Release(projectile);
+    }
+
     IEnumerator TileSystem()
     {
         while (!gameFinished)
@@ -78,6 +113,34 @@ public class MiniGameManager : MonoBehaviour
             }
         }
     }
+    IEnumerator ProjectileSystem()
+    {
+        SetupProjectiles();
+        while (!gameFinished)
+        {
+            timeBeforeCollapsing = Random.Range(minInterval, maxInterval);
+            yield return new WaitForSeconds(timeBeforeCollapsing);
+            selectedTile = Random.Range(0, projectilePool.CountAll);
+            if (tilesList[selectedTile].isTargetable)
+            {
+                tilesList[selectedTile].isTargetable = false;
+                int projectile = tilesList[selectedTile].transform.childCount - 1;
+                tilesList[selectedTile].transform.GetChild(projectile).gameObject.SetActive(true);
+            }
+        }
+    }
+
+    private void SetupProjectiles()
+    {
+        for (int i = 0; i < spawnAmount; i++)
+        {
+            Projectile projectile = projectilePool.Get();
+            projectile.transform.parent = tilesList[i].transform;
+            projectile.transform.position = new Vector3(tilesList[i].transform.position.x, tilesList[i].transform.position.y + 5, tilesList[i].transform.position.z);
+            projectile.setReleaseAction(ReleaseProjectile);
+            projectile.gameObject.SetActive(false);
+        }
+    }
 
     IEnumerator Countdown()
     {
@@ -90,6 +153,7 @@ public class MiniGameManager : MonoBehaviour
         countdownText.text = "Go";
         PlayerJoinManager.switchControlsEvent.Invoke();
         StartCoroutine(TileSystem());
+        StartCoroutine(ProjectileSystem());
         yield return new WaitForSeconds(1);
         countdownText.text = "";
         StopCoroutine(Countdown());
