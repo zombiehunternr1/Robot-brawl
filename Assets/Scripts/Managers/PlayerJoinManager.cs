@@ -48,7 +48,8 @@ public class PlayerJoinManager : MonoBehaviour
     private List<PlayerInfo> playersJoinedSO;
     [SerializeField][HideInInspector]
     private List<PlayerMenuNavigator> playersJoinedPrefabs;
-    private int totalJoinedPlayers;    
+    private int totalJoinedPlayers;
+    private int prefabIndex = 0;
 
     private void OnEnable()
     {
@@ -168,14 +169,12 @@ public class PlayerJoinManager : MonoBehaviour
 
     private void PositionPlayers()
     {
-        for (int i = 0; i < playersJoinedPrefabs.Count; i++)
+        for(int i = 0; i < playersJoinedSO.Count; i++)
         {
-            for (int j = 0; j < playersJoinedSO.Count; j++)
+            if(playersJoinedSO[i].PlayerID != 0)
             {
-                if (playersJoinedSO[j].PlayerID != 0)
-                {
-                    playersJoinedPrefabs[i].transform.position = playersJoinedSO[j].spawnPosition;
-                }
+                playersJoinedPrefabs[prefabIndex].transform.position = playersJoinedSO[i].spawnPosition;
+                prefabIndex++;
             }
         }
     }

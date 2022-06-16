@@ -53,8 +53,14 @@ public class MiniGameManager : MonoBehaviour
         }
         GetTiles();
         CreateProjectilePool();
-        //PlayerJoinManager.positionPlayersEvent.Invoke();
+
     }
+
+    private void Start()
+    {
+        PlayerJoinManager.positionPlayersEvent.Invoke();
+    }
+
     private void OnDisable()
     {
         startMinigameCountdownEvent.RemoveAllListeners();

@@ -96,7 +96,6 @@ public class PlayerMenuNavigator : MonoBehaviour
             }
             transform.position = spawnPos;
             canInteract = true;
-            StopAllCoroutines();
         }
     }
 

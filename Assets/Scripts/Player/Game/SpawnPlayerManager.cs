@@ -22,11 +22,7 @@ public class SpawnPlayerManager : MonoBehaviour
     {        
         for(int i = 0; i < playerInfo.Count; i++)
         {
-            if(playerInfo[i].PlayerID != 0)
-            {
-                playerInfo[i].spawnPosition = SpawnPoints[SpawnPointCount].position;
-                SpawnPointCount++;
-            }
+            playerInfo[i].spawnPosition = SpawnPoints[i].position;
         }
     }
 }
