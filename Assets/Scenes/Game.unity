@@ -2443,11 +2443,11 @@ MonoBehaviour:
   MinigameRulesPanel: {fileID: 607678283}
   countdownText: {fileID: 1486008376}
   tilesReference: {fileID: 1174084756}
-  minInterval: 2
-  maxInterval: 10
+  minInterval: 0
+  maxInterval: 1
   projectilePrefab: {fileID: 2923257019494562571, guid: 2587b640c1fc88f46a5f3753568706ff, type: 3}
-  defaultPoolCapacity: 10
-  maximumPoolCapacity: 25
+  defaultPoolCapacity: 25
+  maximumPoolCapacity: 10000
   projectileHeight: 50
 --- !u!1001 &1117764676
 PrefabInstance:
