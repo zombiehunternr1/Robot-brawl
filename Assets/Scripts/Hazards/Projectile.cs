@@ -10,9 +10,9 @@ public class Projectile : MonoBehaviour
     private float movementSpeed;
     private Vector3 originalPosition;
 
-    public void SetOriginalPosition(Vector3 pos)
+    private void OnEnable()
     {
-        originalPosition = pos;
+        originalPosition = transform.position;
     }
 
     private void Update()

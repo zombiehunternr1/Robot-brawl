@@ -58,7 +58,7 @@ public class MiniGameManager : MonoBehaviour
 
     private void Start()
     {
-        PlayerJoinManager.positionPlayersEvent.Invoke();
+        //PlayerJoinManager.positionPlayersEvent.Invoke();
     }
 
     private void OnDisable()
@@ -92,7 +92,7 @@ public class MiniGameManager : MonoBehaviour
         {
             tilesList.Add(tile);
         }
-        //StartCoroutine(TileSystem());
+        StartCoroutine(TileSystem());
     }
 
     private void ReleaseProjectile(Projectile projectile)
@@ -107,9 +107,10 @@ public class MiniGameManager : MonoBehaviour
             Projectile projectile = projectilePool.Get();
             projectile.gameObject.SetActive(false);
             projectile.transform.parent = tilesList[i].transform;
-            projectile.SetOriginalPosition(new Vector3(tilesList[i].transform.position.x, tilesList[i].transform.position.y + projectileHeight, tilesList[i].transform.position.z));
+            projectile.transform.position = new Vector3(tilesList[i].transform.position.x, tilesList[i].transform.position.y + projectileHeight, tilesList[i].transform.position.z);
             projectile.setReleaseAction(ReleaseProjectile);
         }
+        StartCoroutine(ProjectileSystem());
     }
 
     public void StartCountdown()
