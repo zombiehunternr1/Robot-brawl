@@ -2440,6 +2440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 872ab74b8430a92409c01f61d4be1654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerRankSO: {fileID: 11400000, guid: 298322e9844c00741901d56f8ea95257, type: 2}
   MinigameRulesPanel: {fileID: 607678283}
   countdownText: {fileID: 1486008376}
   tilesReference: {fileID: 1174084756}
@@ -3522,8 +3523,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1641265663}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.02, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 5}
+  m_LocalScale: {x: 40, y: 1, z: 40}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1058924626}
@@ -3540,8 +3541,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 20.346426, y: 0.1, z: 17.248457}
-  m_Center: {x: 2.2240267, y: 0, z: 7.2831774}
+  m_Size: {x: 1, y: 0.5, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1641265666
 MonoBehaviour:
   m_ObjectHideFlags: 0

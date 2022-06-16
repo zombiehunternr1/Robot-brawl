@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerControl : MonoBehaviour
 {
+    public int playerID { get; set; }
     [SerializeField]
     private AnimatorController gameAnimations;
     [SerializeField]
@@ -121,7 +122,7 @@ public class PlayerControl : MonoBehaviour
         allowInput = false;
         rB.useGravity = false;
         anim.Play("Falling");
-        this.enabled = false;
+        MiniGameManager.checkMinigameFinishedEvent.Invoke(playerID);
     }
 
     //Once this function gets called the coroutine to start the dizzyness cooldown
@@ -175,7 +176,7 @@ public class PlayerControl : MonoBehaviour
                 isDizzy = false;
                 currentTime = 0;
             }
-            yield return currentTime;
+            yield return null;
         }
         allowInput = true;
         playerSkin.NormalExpression();

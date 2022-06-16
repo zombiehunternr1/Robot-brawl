@@ -9,12 +9,9 @@ public class SpawnPlayerManager : MonoBehaviour
     private List<Transform> SpawnPoints;
     [SerializeField]
     private List<PlayerInfo> playerInfo;
-
-    private int SpawnPointCount;
     
     private void OnEnable()
     {
-        SpawnPointCount = 0;
         SetPlayerSpawnPosition();
     }
 

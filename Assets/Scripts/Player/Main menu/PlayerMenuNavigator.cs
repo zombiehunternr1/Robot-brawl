@@ -51,11 +51,13 @@ public class PlayerMenuNavigator : MonoBehaviour
             isConfirmed = true;
             anim.CrossFade("Ready", smoothAnimTransitionTime);
             PlayerJoinManager.changePlayerReadyStatus.Invoke(playerID, isConfirmed);
+            return;
         }
         else if (context.performed && PlayerJoinManager.allPlayersReady && canInteract)
         {
             canInteract = false;
             PlayerJoinManager.loadMinigameEvent.Invoke();
+            return;
         }
         else if (context.performed && PlayerJoinManager.allPlayersReady && !canInteract)
         {
@@ -71,7 +73,7 @@ public class PlayerMenuNavigator : MonoBehaviour
             anim.CrossFade("Unready", smoothAnimTransitionTime);
             PlayerJoinManager.changePlayerReadyStatus.Invoke(playerID, isConfirmed);
         }
-        else if (context.performed && !isConfirmed)
+        else if (context.performed && !isConfirmed && canInteract)
         {
             StartCoroutine(LeaveFromOrigin(playerJoinedRef));
         }
@@ -80,8 +82,8 @@ public class PlayerMenuNavigator : MonoBehaviour
     public void SwitchToMinigameScript()
     {
         playerControl.enabled = true;
+        playerControl.playerID = playerID;
         playerControl.AllowInput();
-        this.enabled = false;
     }
 
     private IEnumerator MoveToOrigin()

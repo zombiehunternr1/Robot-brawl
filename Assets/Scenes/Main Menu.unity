@@ -1015,6 +1015,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9009c614b1db32948b77847d85147e54, type: 2}
   - {fileID: 11400000, guid: 351569c009cee5f439a0859fc61558e0, type: 2}
   - {fileID: 11400000, guid: c7a0cdfad7f8a5145a91a906e08b13f1, type: 2}
+  playerRankSO: {fileID: 11400000, guid: 298322e9844c00741901d56f8ea95257, type: 2}
   playersJoinedPrefabs: []
 --- !u!1 &173791771
 GameObject:

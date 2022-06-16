@@ -46,6 +46,8 @@ public class PlayerJoinManager : MonoBehaviour
     private MainMenuUIManager mainMenuReference;
     [SerializeField]
     private List<PlayerInfo> playersJoinedSO;
+    [SerializeField]
+    private PlayerRanking playerRankSO;
     [SerializeField][HideInInspector]
     private List<PlayerMenuNavigator> playersJoinedPrefabs;
     private int totalJoinedPlayers;
@@ -174,6 +176,7 @@ public class PlayerJoinManager : MonoBehaviour
             if(playersJoinedSO[i].PlayerID != 0)
             {
                 playersJoinedPrefabs[prefabIndex].transform.position = playersJoinedSO[i].spawnPosition;
+                playerRankSO.currentPlayerIDs.Add(playersJoinedSO[i].PlayerID);
                 prefabIndex++;
             }
         }

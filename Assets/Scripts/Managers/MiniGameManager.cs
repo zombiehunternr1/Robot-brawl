@@ -11,11 +11,18 @@ public class StartMinigameEvent : UnityEvent
 {
 
 }
+[System.Serializable]
+public class CheckMinigameFinishedEvent : UnityEvent<int>
+{
 
+}
 public class MiniGameManager : MonoBehaviour
 {
     public static StartMinigameEvent startMinigameCountdownEvent;
+    public static CheckMinigameFinishedEvent checkMinigameFinishedEvent;
 
+    [SerializeField]
+    private PlayerRanking playerRankSO;
     [SerializeField]
     private RectTransform MinigameRulesPanel;
     [SerializeField]
@@ -51,6 +58,11 @@ public class MiniGameManager : MonoBehaviour
             startMinigameCountdownEvent = new StartMinigameEvent();
             startMinigameCountdownEvent.AddListener(StartCountdown);
         }
+        if(checkMinigameFinishedEvent == null)
+        {
+            checkMinigameFinishedEvent = new CheckMinigameFinishedEvent();
+            checkMinigameFinishedEvent.AddListener(CheckGameFinished);
+        }
         GetTiles();
         CreateProjectilePool();
 
@@ -58,12 +70,13 @@ public class MiniGameManager : MonoBehaviour
 
     private void Start()
     {
-        //PlayerJoinManager.positionPlayersEvent.Invoke();
+        PlayerJoinManager.positionPlayersEvent.Invoke();
     }
 
     private void OnDisable()
     {
         startMinigameCountdownEvent.RemoveAllListeners();
+        checkMinigameFinishedEvent.RemoveAllListeners();
     }
     private void CreateProjectilePool()
     {
@@ -82,7 +95,6 @@ public class MiniGameManager : MonoBehaviour
             Destroy(projectile.gameObject);
         }, false, defaultPoolCapacity, maximumPoolCapacity);
         SetupProjectiles();
-        StartCoroutine(ProjectileSystem());
     }
 
     private void GetTiles()
@@ -92,7 +104,7 @@ public class MiniGameManager : MonoBehaviour
         {
             tilesList.Add(tile);
         }
-        StartCoroutine(TileSystem());
+        //StartCoroutine(TileSystem());
     }
 
     private void ReleaseProjectile(Projectile projectile)
@@ -110,13 +122,25 @@ public class MiniGameManager : MonoBehaviour
             projectile.transform.position = new Vector3(tilesList[i].transform.position.x, tilesList[i].transform.position.y + projectileHeight, tilesList[i].transform.position.z);
             projectile.setReleaseAction(ReleaseProjectile);
         }
-        StartCoroutine(ProjectileSystem());
+        //StartCoroutine(ProjectileSystem());
     }
 
     public void StartCountdown()
     {
         MinigameRulesPanel.gameObject.SetActive(false);
         StartCoroutine(Countdown());
+    }
+
+    private void CheckGameFinished(int playerID)
+    {
+        for(int i = 0; i < playerRankSO.currentPlayerIDs.Count; i++)
+        {
+            if(playerRankSO.currentPlayerIDs[i] == playerID)
+            {
+                Debug.Log("Player ID: " + playerID);
+                Debug.Log("It's a match!");
+            }
+        }
     }
 
     IEnumerator TileSystem()
