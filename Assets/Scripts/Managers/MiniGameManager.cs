@@ -29,7 +29,6 @@ public class MiniGameManager : MonoBehaviour
 
     [SerializeField]
     private Projectile projectilePrefab;
-    [SerializeField]
     private int spawnAmount;
     [SerializeField]
     private int defaultPoolCapacity;

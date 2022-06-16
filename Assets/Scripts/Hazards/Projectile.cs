@@ -6,6 +6,13 @@ using System;
 public class Projectile : MonoBehaviour
 {
     private Action<Projectile> _releaseAction;
+    [SerializeField]
+    private float movementSpeed;
+
+    private void Update()
+    {
+        transform.position -= new Vector3(0, movementSpeed * Time.deltaTime, 0);
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
