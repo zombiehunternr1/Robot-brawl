@@ -8,6 +8,12 @@ public class Projectile : MonoBehaviour
     private Action<Projectile> _releaseAction;
     [SerializeField]
     private float movementSpeed;
+    private Vector3 originalPosition;
+
+    public void SetOriginalPosition(Vector3 pos)
+    {
+        originalPosition = pos;
+    }
 
     private void Update()
     {
@@ -25,6 +31,7 @@ public class Projectile : MonoBehaviour
         {
             collision.gameObject.GetComponent<Tile>().isTargetable = true;
         }
+        transform.position = originalPosition;
         _releaseAction(this);
     }
 

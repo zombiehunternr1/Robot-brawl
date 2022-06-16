@@ -53,7 +53,7 @@ public class MiniGameManager : MonoBehaviour
         }
         GetTiles();
         CreateProjectilePool();
-        PlayerJoinManager.positionPlayersEvent.Invoke();
+        //PlayerJoinManager.positionPlayersEvent.Invoke();
     }
     private void OnDisable()
     {
@@ -75,7 +75,8 @@ public class MiniGameManager : MonoBehaviour
         {
             Destroy(projectile.gameObject);
         }, false, defaultPoolCapacity, maximumPoolCapacity);
-        //StartCoroutine(ProjectileSystem());
+        SetupProjectiles();
+        StartCoroutine(ProjectileSystem());
     }
 
     private void GetTiles()
@@ -98,10 +99,10 @@ public class MiniGameManager : MonoBehaviour
         for (int i = 0; i < spawnAmount; i++)
         {
             Projectile projectile = projectilePool.Get();
-            projectile.transform.parent = tilesList[i].transform;
-            projectile.transform.position = new Vector3(tilesList[i].transform.position.x, tilesList[i].transform.position.y + projectileHeight, tilesList[i].transform.position.z);
-            projectile.setReleaseAction(ReleaseProjectile);
             projectile.gameObject.SetActive(false);
+            projectile.transform.parent = tilesList[i].transform;
+            projectile.SetOriginalPosition(new Vector3(tilesList[i].transform.position.x, tilesList[i].transform.position.y + projectileHeight, tilesList[i].transform.position.z));
+            projectile.setReleaseAction(ReleaseProjectile);
         }
     }
 
@@ -127,7 +128,6 @@ public class MiniGameManager : MonoBehaviour
     }
     IEnumerator ProjectileSystem()
     {
-        SetupProjectiles();
         while (!gameFinished)
         {
             timeBeforeEventTrigger = Random.Range(minInterval, maxInterval);
