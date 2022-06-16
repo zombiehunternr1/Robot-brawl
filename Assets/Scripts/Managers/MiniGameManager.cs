@@ -53,7 +53,7 @@ public class MiniGameManager : MonoBehaviour
         }
         GetTiles();
         CreateProjectilePool();
-        //PlayerJoinManager.positionPlayersEvent.Invoke();
+        PlayerJoinManager.positionPlayersEvent.Invoke();
     }
     private void OnDisable()
     {
@@ -75,7 +75,7 @@ public class MiniGameManager : MonoBehaviour
         {
             Destroy(projectile.gameObject);
         }, false, defaultPoolCapacity, maximumPoolCapacity);
-        StartCoroutine(ProjectileSystem());
+        //StartCoroutine(ProjectileSystem());
     }
 
     private void GetTiles()
@@ -85,7 +85,7 @@ public class MiniGameManager : MonoBehaviour
         {
             tilesList.Add(tile);
         }
-        StartCoroutine(TileSystem());
+        //StartCoroutine(TileSystem());
     }
 
     private void ReleaseProjectile(Projectile projectile)

@@ -21,7 +21,10 @@ public class Projectile : MonoBehaviour
             PlayerControl player = collision.gameObject.GetComponent<PlayerControl>();
             player.StartDizzynessEffect();
         }
-        collision.gameObject.GetComponent<Tile>().isTargetable = true;
+        else if (collision.gameObject.GetComponent<Tile>())
+        {
+            collision.gameObject.GetComponent<Tile>().isTargetable = true;
+        }
         _releaseAction(this);
     }
 
