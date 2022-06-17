@@ -687,6 +687,7 @@ GameObject:
   - component: {fileID: 1097960669157147595}
   - component: {fileID: 2088705804971400921}
   - component: {fileID: 2088705804971400920}
+  - component: {fileID: -6903657344997307169}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -763,6 +764,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33a037534b84dd943bd9ea4b99e784cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UpdateActivePlayersEvent: {fileID: 11400000, guid: 0f5870223192e6e449c22f2afbc874f9, type: 2}
   gameAnimations: {fileID: 9100000, guid: 24ed3f853737d1241a69f6416ee8a35c, type: 2}
   movementSpeed: 3.5
   crossFadeAnimSpeed: 0.1
@@ -957,6 +959,34 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5225551, y: 1.6058104, z: 0.48681313}
   m_Center: {x: -0.01342842, y: 0.8029052, z: 0.08455089}
+--- !u!114 &-6903657344997307169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818196299168072758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 823d9ff58462ebe448b4ea0e9d424562, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameEvent: {fileID: 11400000, guid: 9f4f11f7ac3629b42a3152221a24a8eb, type: 2}
+  _respondse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8287312910086004120}
+        m_TargetAssemblyTypeName: PlayerControl, Assembly-CSharp
+        m_MethodName: GameOver
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1874736860833115692
 GameObject:
   m_ObjectHideFlags: 0

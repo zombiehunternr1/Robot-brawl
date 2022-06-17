@@ -6,10 +6,10 @@ using UnityEngine.InputSystem;
 public class EventRaiserLeave : MonoBehaviour
 {
     [SerializeField]
-    private GameEventLeave _gameEvent;
+    private GameEventLeave _gameLeaveEvent;
 
     public void RaiseLeaveEvent(PlayerInput playerInput)
     {
-        _gameEvent.RaiseLeave(playerInput);
+        _gameLeaveEvent.RaiseLeave(playerInput);
     }
 }

@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32ae48a175ae1bc478e533259c660126, type: 3}
-  m_Name: Game event leave player
+  m_Script: {fileID: 11500000, guid: 52a1d686e65043544b181694aa325b75, type: 3}
+  m_Name: Stop game
   m_EditorClassIdentifier: 

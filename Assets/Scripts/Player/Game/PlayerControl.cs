@@ -8,6 +8,8 @@ public class PlayerControl : MonoBehaviour
 {
     public int playerID { get; set; }
     [SerializeField]
+    private GameEventInt UpdateActivePlayersEvent;
+    [SerializeField]
     private AnimatorController gameAnimations;
     [SerializeField]
     private float movementSpeed;
@@ -122,6 +124,12 @@ public class PlayerControl : MonoBehaviour
         allowInput = false;
         rB.useGravity = false;
         anim.Play("Falling");
+        UpdateActivePlayersEvent.RaiseInt(playerID);
+    }
+
+    public void GameOver()
+    {
+        allowInput = false;       
     }
 
     //Once this function gets called the coroutine to start the dizzyness cooldown

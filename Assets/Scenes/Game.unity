@@ -2347,6 +2347,8 @@ GameObject:
   - component: {fileID: 1058924626}
   - component: {fileID: 1058924627}
   - component: {fileID: 1058924628}
+  - component: {fileID: 1058924629}
+  - component: {fileID: 1058924630}
   m_Layer: 0
   m_Name: Arena
   m_TagString: Untagged
@@ -2386,7 +2388,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   positionPlayersEvent: {fileID: 11400000, guid: 695b9c0498f2773419d5f336ea79817f, type: 2}
   switchControlsEvent: {fileID: 11400000, guid: 0d29b00095049614eb9fc06457cba14f, type: 2}
-  playerRankSO: {fileID: 11400000, guid: 298322e9844c00741901d56f8ea95257, type: 2}
+  stopGameEvent: {fileID: 11400000, guid: 9f4f11f7ac3629b42a3152221a24a8eb, type: 2}
+  playersSO:
+  - {fileID: 11400000, guid: aa5d7d49d0b5578498cb312c9f8089ba, type: 2}
+  - {fileID: 11400000, guid: 9009c614b1db32948b77847d85147e54, type: 2}
+  - {fileID: 11400000, guid: 351569c009cee5f439a0859fc61558e0, type: 2}
+  - {fileID: 11400000, guid: c7a0cdfad7f8a5145a91a906e08b13f1, type: 2}
   MinigameRulesPanel: {fileID: 607678283}
   countdownText: {fileID: 1486008376}
   tilesReference: {fileID: 1174084756}
@@ -2415,6 +2422,62 @@ MonoBehaviour:
       - m_Target: {fileID: 1058924627}
         m_TargetAssemblyTypeName: MiniGameManager, Assembly-CSharp
         m_MethodName: StartCountdown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1058924629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058924625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be0b494fa7158824aa3535ff6b0254c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameEventInt: {fileID: 11400000, guid: 0f5870223192e6e449c22f2afbc874f9, type: 2}
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1058924627}
+        m_TargetAssemblyTypeName: MiniGameManager, Assembly-CSharp
+        m_MethodName: AddPlayerToRank
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1058924630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058924625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 823d9ff58462ebe448b4ea0e9d424562, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameEvent: {fileID: 11400000, guid: 9f4f11f7ac3629b42a3152221a24a8eb, type: 2}
+  _respondse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1058924627}
+        m_TargetAssemblyTypeName: MiniGameManager, Assembly-CSharp
+        m_MethodName: GameOver
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

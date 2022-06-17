@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82de79830de929240b754312dba1b710, type: 3}
-  m_Name: Game event check ready status
+  m_Script: {fileID: 11500000, guid: cc4a04217ec12334b9c5bf1da091bcd0, type: 3}
+  m_Name: Change skin color
   m_EditorClassIdentifier: 

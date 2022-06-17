@@ -6,22 +6,16 @@ using UnityEngine.Events;
 using UnityEngine.Pool;
 using TMPro;
 
-[System.Serializable]
-public class StartMinigameEvent : UnityEvent
-{
-
-}
-[System.Serializable]
-public class CheckMinigameFinishedEvent : UnityEvent<int>
-{
-
-}
 public class MiniGameManager : MonoBehaviour
 {
     [SerializeField]
     private GameEventEmpty positionPlayersEvent;
     [SerializeField]
     private GameEventEmpty switchControlsEvent;
+    [SerializeField]
+    private GameEventEmpty stopGameEvent;
+    [SerializeField]
+    private List<PlayerInfo> playersSO;
     [SerializeField]
     private RectTransform MinigameRulesPanel;
     [SerializeField]
@@ -43,11 +37,13 @@ public class MiniGameManager : MonoBehaviour
     [SerializeField]
     private float projectileHeight;
 
-    private bool gameFinished { get; set; }
+    private bool gameFinished;
     private float timeBeforeEventTrigger;
     private int selectedTile;
     private List<Tile> tilesList;
     private ObjectPool<Projectile> projectilePool;
+    [SerializeField]
+    private List<PlayerInfo> RankList;
 
     private void OnEnable()
     {
@@ -59,7 +55,59 @@ public class MiniGameManager : MonoBehaviour
 
     private void Start()
     {
+        SetupRank();
         positionPlayersEvent.Raise();
+    }
+
+    public void AddPlayerToRank(int playerID)
+    {
+        for(int i = 0; i < playersSO.Count; i++)
+        {
+            if(playersSO[i].PlayerID == playerID)
+            {
+                RankList.Add(playersSO[i]);
+            }
+        }
+        CheckRank();
+    }
+
+    public void GameOver()
+    {
+        gameFinished = true;
+        StopAllCoroutines();
+    }
+
+    private void CheckRank()
+    {
+        int activePlayersLeft = playersSO.Count;
+        foreach(PlayerInfo player in RankList)
+        {
+            activePlayersLeft--;
+        }
+        if(activePlayersLeft <= 1)
+        {
+            foreach (PlayerInfo player in playersSO)
+            {
+                if (!RankList.Contains(player))
+                {
+                    RankList.Add(player);
+                }
+                RankList.Reverse();
+                countdownText.text = "Player " + RankList[0].PlayerID + " Wins!";
+            }
+            stopGameEvent.Raise();
+        }
+    }
+
+    private void SetupRank()
+    {
+        for(int i = 0; i < playersSO.Count; i++)
+        {
+            if(playersSO[i].PlayerID == 0)
+            {
+                RankList.Add(playersSO[i]);
+            }
+        }
     }
 
     private void CreateProjectilePool()
@@ -88,7 +136,6 @@ public class MiniGameManager : MonoBehaviour
         {
             tilesList.Add(tile);
         }
-        //StartCoroutine(TileSystem());
     }
 
     private void ReleaseProjectile(Projectile projectile)
@@ -106,7 +153,6 @@ public class MiniGameManager : MonoBehaviour
             projectile.transform.position = new Vector3(tilesList[i].transform.position.x, tilesList[i].transform.position.y + projectileHeight, tilesList[i].transform.position.z);
             projectile.setReleaseAction(ReleaseProjectile);
         }
-        //StartCoroutine(ProjectileSystem());
     }
 
     public void StartCountdown()
