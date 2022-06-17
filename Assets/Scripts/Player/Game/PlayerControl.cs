@@ -122,7 +122,6 @@ public class PlayerControl : MonoBehaviour
         allowInput = false;
         rB.useGravity = false;
         anim.Play("Falling");
-        MiniGameManager.checkMinigameFinishedEvent.Invoke(playerID);
     }
 
     //Once this function gets called the coroutine to start the dizzyness cooldown

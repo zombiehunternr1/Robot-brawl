@@ -18,15 +18,10 @@ public class CheckMinigameFinishedEvent : UnityEvent<int>
 }
 public class MiniGameManager : MonoBehaviour
 {
-    public static StartMinigameEvent startMinigameCountdownEvent;
-    public static CheckMinigameFinishedEvent checkMinigameFinishedEvent;
-
     [SerializeField]
     private GameEventEmpty positionPlayersEvent;
     [SerializeField]
     private GameEventEmpty switchControlsEvent;
-    [SerializeField]
-    private PlayerRanking playerRankSO;
     [SerializeField]
     private RectTransform MinigameRulesPanel;
     [SerializeField]
@@ -57,16 +52,6 @@ public class MiniGameManager : MonoBehaviour
     private void OnEnable()
     {
         gameFinished = false;
-        if(startMinigameCountdownEvent == null)
-        {
-            startMinigameCountdownEvent = new StartMinigameEvent();
-            startMinigameCountdownEvent.AddListener(StartCountdown);
-        }
-        if(checkMinigameFinishedEvent == null)
-        {
-            checkMinigameFinishedEvent = new CheckMinigameFinishedEvent();
-            checkMinigameFinishedEvent.AddListener(CheckGameFinished);
-        }
         GetTiles();
         CreateProjectilePool();
 
@@ -77,11 +62,6 @@ public class MiniGameManager : MonoBehaviour
         positionPlayersEvent.Raise();
     }
 
-    private void OnDisable()
-    {
-        startMinigameCountdownEvent.RemoveAllListeners();
-        checkMinigameFinishedEvent.RemoveAllListeners();
-    }
     private void CreateProjectilePool()
     {
         spawnAmount = tilesList.Count;
@@ -133,26 +113,6 @@ public class MiniGameManager : MonoBehaviour
     {
         MinigameRulesPanel.gameObject.SetActive(false);
         StartCoroutine(Countdown());
-    }
-
-    private void CheckGameFinished(int playerID)
-    {
-        for(int i = 0; i < playerRankSO.currentPlayerIDs.Count; i++)
-        {
-            if(playerRankSO.currentPlayerIDs[i] == playerID)
-            {
-                playerRankSO.currentPlayerIDs.Remove(i);
-                playerRankSO.playerRanking.Add(playerID);
-                if(playerRankSO.currentPlayerIDs.Count == 1)
-                {
-                    playerRankSO.playerRanking.Add(0);
-                    playerRankSO.currentPlayerIDs.Remove(0);
-                    playerRankSO.playerRanking.Reverse();
-                    Debug.Log("Game over!");
-                    Debug.Log("Player " + playerRankSO.playerRanking[0] + " wins!");
-                }
-            }
-        }
     }
 
     IEnumerator TileSystem()
