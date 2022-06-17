@@ -6,5 +6,5 @@ using UnityEngine;
 public class PlayerRanking : ScriptableObject
 {
     public List<int> currentPlayerIDs;
-    public List<PlayerInfo> playerRanking;
+    public List<int> playerRanking;
 }

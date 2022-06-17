@@ -3,43 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using System;
 
-[System.Serializable]
-public class ChangePlayerReadyStateEvent : UnityEvent<int, bool>
-{
-
-}
-[System.Serializable]
-public class LeavePlayerEvent : UnityEvent<PlayerInput>
-{
-
-}
-[System.Serializable]
-public class LoadMinigameEvent : UnityEvent
-{
-
-}
-[System.Serializable]
-public class SwitchControlsEvent : UnityEvent
-{
-
-}
-[System.Serializable]
-public class PositionPlayersEvent : UnityEvent
-{
-
-}
-
 public class PlayerJoinManager : MonoBehaviour
 {
-    public static ChangePlayerReadyStateEvent changePlayerReadyStatus;
-    public static LeavePlayerEvent leavePlayerEvent;
-    public static LoadMinigameEvent loadMinigameEvent;
-    public static SwitchControlsEvent switchControlsEvent;
-    public static PositionPlayersEvent positionPlayersEvent;
     public static bool allPlayersReady { get; set; }
 
     [SerializeField]
@@ -55,6 +23,8 @@ public class PlayerJoinManager : MonoBehaviour
 
     private void OnEnable()
     {
+        playerRankSO.playerRanking.Clear();
+        playerRankSO.currentPlayerIDs.Clear();
         for (int i = 0; i < playersJoinedSO.Count; i++)
         {
             playersJoinedSO[i].PlayerID = 0;
@@ -63,40 +33,11 @@ public class PlayerJoinManager : MonoBehaviour
             playersJoinedSO[i].spawnPosition = Vector3.zero;
         }
         allPlayersReady = false;
-        if(changePlayerReadyStatus == null)
-        {
-            changePlayerReadyStatus = new ChangePlayerReadyStateEvent();
-            changePlayerReadyStatus.AddListener(CheckPlayerReadyState);
-        }
-        if(leavePlayerEvent == null)
-        {
-            leavePlayerEvent = new LeavePlayerEvent();
-            leavePlayerEvent.AddListener(LeavePlayerEvent);
-        }
-        if(loadMinigameEvent == null)
-        {
-            loadMinigameEvent = new LoadMinigameEvent();
-            loadMinigameEvent.AddListener(LoadMiniGameScene);
-        }
-        if(switchControlsEvent == null)
-        {
-            switchControlsEvent = new SwitchControlsEvent();
-            switchControlsEvent.AddListener(SwitchControls);
-        }
-        if(positionPlayersEvent == null)
-        {
-            positionPlayersEvent = new PositionPlayersEvent();
-            positionPlayersEvent.AddListener(PositionPlayers);
-        }
         DontDestroyOnLoad(this);
     }
 
     private void OnDisable()
     {
-        changePlayerReadyStatus.RemoveAllListeners();
-        leavePlayerEvent.RemoveAllListeners();
-        loadMinigameEvent.RemoveAllListeners();
-        switchControlsEvent.RemoveAllListeners();
         if (!allPlayersReady)
         {
             for (int i = 0; i < playersJoinedSO.Count; i++)
@@ -117,7 +58,7 @@ public class PlayerJoinManager : MonoBehaviour
         CheckStartGame();
     }
 
-    private void LeavePlayerEvent(PlayerInput playerInput)
+    public void LeavePlayerEvent(PlayerInput playerInput)
     {
         playersJoinedPrefabs.Remove(playerInput.GetComponent<PlayerMenuNavigator>());
         AudioManager.instance.PlayLeaveEvent();
@@ -126,7 +67,7 @@ public class PlayerJoinManager : MonoBehaviour
         CheckStartGame();
     }
 
-    private void CheckPlayerReadyState(int playerIndex, bool isReady)
+    public void CheckPlayerReadyState(int playerIndex, bool isReady)
     {
         if (isReady)
         {
@@ -164,12 +105,12 @@ public class PlayerJoinManager : MonoBehaviour
         mainMenuReference.CheckStartDisplay(allPlayersReady);
     }
 
-    private void LoadMiniGameScene()
+    public void LoadMiniGameScene()
     {
         SceneManager.LoadScene("Game");
     }
 
-    private void PositionPlayers()
+    public void PositionPlayers()
     {
         for(int i = 0; i < playersJoinedSO.Count; i++)
         {
@@ -182,7 +123,7 @@ public class PlayerJoinManager : MonoBehaviour
         }
     }
 
-    private void SwitchControls()
+    public void SwitchControls()
     {
         foreach (PlayerMenuNavigator player in playersJoinedPrefabs)
         {

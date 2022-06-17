@@ -722,6 +722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37f16eb20c0c07041a237b446581bfa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  changeSkinColor: {fileID: 11400000, guid: a6b361ea7c6d5cc4ba08d870f6ca6aa4, type: 2}
   skinColors:
   - {fileID: 2100000, guid: 60c2f0e0aaa8f8d4e9d23d7e3768653b, type: 2}
   - {fileID: 2100000, guid: 429f65715406a424ea43d00e2da9fd84, type: 2}
@@ -746,6 +747,10 @@ MonoBehaviour:
   moveSpeed: 5
   leaveSpeed: 3
   smoothAnimTransitionTime: 0.15
+  checkReadyEvent: {fileID: 11400000, guid: 8a5262f190ecd924a86d2a1327b55be5, type: 2}
+  leavePlayerEvent: {fileID: 11400000, guid: 8b9366f14d63b014eb0634b65f27ff65, type: 2}
+  switchSceneEvent: {fileID: 11400000, guid: 3d9efafae2ad0784aba4ed3fb72cb88b, type: 2}
+  startGameEvent: {fileID: 11400000, guid: ed5a6ed1b447a1340be2716f0490b66d, type: 2}
 --- !u!114 &8287312910086004120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -836,8 +841,8 @@ MonoBehaviour:
     m_ActionName: Menu/Navigate Down[/DualShock4GamepadHID/dpad/down,/XInputControllerWindows/dpad/down,/Keyboard/downArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1583840139079898135}
-        m_TargetAssemblyTypeName: CharacterSkinController, Assembly-CSharp
+      - m_Target: {fileID: 2088705804971400922}
+        m_TargetAssemblyTypeName: PlayerMenuNavigator, Assembly-CSharp
         m_MethodName: PrevSkinType
         m_Mode: 0
         m_Arguments:
@@ -852,8 +857,8 @@ MonoBehaviour:
     m_ActionName: Menu/Navigate Left[/Keyboard/a,/Keyboard/leftArrow,/DualShock4GamepadHID/dpad/left,/XInputControllerWindows/dpad/left]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1583840139079898135}
-        m_TargetAssemblyTypeName: CharacterSkinController, Assembly-CSharp
+      - m_Target: {fileID: 2088705804971400922}
+        m_TargetAssemblyTypeName: PlayerMenuNavigator, Assembly-CSharp
         m_MethodName: NextSkinType
         m_Mode: 0
         m_Arguments:

@@ -3,18 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
-using UnityEngine.Events;
 
-[System.Serializable]
-public class ChangeColorDisplayEvent : UnityEvent<int, int, Material>
-{
-
-}
 
 public class MainMenuUIManager : MonoBehaviour
 {
-    public static ChangeColorDisplayEvent changeColorDisplay;
-
     [SerializeField]
     private RectTransform startGameDisplay;
     [SerializeField]
@@ -31,21 +23,6 @@ public class MainMenuUIManager : MonoBehaviour
     private List<Transform> spawnPos;
     [SerializeField]
     private List<PlayerInfo> playersJoined;
-
-    private void OnEnable()
-    {
-        if (changeColorDisplay == null)
-        {
-            changeColorDisplay = new ChangeColorDisplayEvent();
-            changeColorDisplay.AddListener(ChangeSkinColorDisplay);
-        }
-    }
-
-    private void OnDisable()
-    {
-        changeColorDisplay.RemoveAllListeners();
-    }
-
     public void UpdateUIDisplay(PlayerInput playerInput, bool isJoining)
     {
         if (isJoining)
@@ -82,7 +59,6 @@ public class MainMenuUIManager : MonoBehaviour
 
     public void ChangeSkinColorDisplay(int playerIndex, int skinIndex, Material skinColor)
     {
-        AudioManager.instance.PlaySwitchColorEvent();
         skinColorDisplay[playerIndex - 1].color = skinColorOptions[skinIndex];
         playersJoined[playerIndex - 1].skinColor = skinColor;
     }

@@ -22,6 +22,10 @@ public class MiniGameManager : MonoBehaviour
     public static CheckMinigameFinishedEvent checkMinigameFinishedEvent;
 
     [SerializeField]
+    private GameEventEmpty positionPlayersEvent;
+    [SerializeField]
+    private GameEventEmpty switchControlsEvent;
+    [SerializeField]
     private PlayerRanking playerRankSO;
     [SerializeField]
     private RectTransform MinigameRulesPanel;
@@ -70,7 +74,7 @@ public class MiniGameManager : MonoBehaviour
 
     private void Start()
     {
-        PlayerJoinManager.positionPlayersEvent.Invoke();
+        positionPlayersEvent.Raise();
     }
 
     private void OnDisable()
@@ -137,8 +141,16 @@ public class MiniGameManager : MonoBehaviour
         {
             if(playerRankSO.currentPlayerIDs[i] == playerID)
             {
-                Debug.Log("Player ID: " + playerID);
-                Debug.Log("It's a match!");
+                playerRankSO.currentPlayerIDs.Remove(i);
+                playerRankSO.playerRanking.Add(playerID);
+                if(playerRankSO.currentPlayerIDs.Count == 1)
+                {
+                    playerRankSO.playerRanking.Add(0);
+                    playerRankSO.currentPlayerIDs.Remove(0);
+                    playerRankSO.playerRanking.Reverse();
+                    Debug.Log("Game over!");
+                    Debug.Log("Player " + playerRankSO.playerRanking[0] + " wins!");
+                }
             }
         }
     }
@@ -182,7 +194,7 @@ public class MiniGameManager : MonoBehaviour
         countdownText.text = "1";
         yield return new WaitForSeconds(1);
         countdownText.text = "Go";
-        PlayerJoinManager.switchControlsEvent.Invoke();
+        switchControlsEvent.Raise();
         StartCoroutine(TileSystem());
         StartCoroutine(ProjectileSystem());
         yield return new WaitForSeconds(1);

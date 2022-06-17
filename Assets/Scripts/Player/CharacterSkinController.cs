@@ -6,17 +6,18 @@ using UnityEngine.InputSystem;
 public class CharacterSkinController : MonoBehaviour
 {
     [SerializeField]
+    private GameEventChangeSkinColor changeSkinColor;
+    [SerializeField]
     private List<Material> skinColors;
     private Renderer[] characterMaterials;
-    private int skinColorIndex;
     [SerializeField]
     private PlayerMenuNavigator playerNav;
     private Vector2 offset;
+    private int skinColorIndex;
 
     private void OnEnable()
     {
         characterMaterials = GetComponentsInChildren<Renderer>();
-        ChangeSkinType(skinColorIndex);
     }
 
     public void NormalExpression()
@@ -47,34 +48,29 @@ public class CharacterSkinController : MonoBehaviour
             {
                 characterMaterials[i].material = skinColors[index];
             }
-        }
-        MainMenuUIManager.changeColorDisplay.Invoke(playerNav.playerID, index, skinColors[skinColorIndex]);
-    }
-
-    public void NextSkinType(InputAction.CallbackContext context)
-    {
-        if (context.performed && !playerNav.isConfirmed && playerNav.canInteract)
-        {
-            skinColorIndex++;
-            if (skinColorIndex > skinColors.Count - 1)
-            {
-                skinColorIndex = 0;
-            }
-            ChangeSkinType(skinColorIndex);
+            AudioManager.instance.PlaySwitchColorEvent();
+            changeSkinColor.RaiseChangeSkinColor(playerNav.playerID, index, skinColors[index]);
         }
     }
 
-    public void PrevSkinType(InputAction.CallbackContext context)
+    public void NextSkinType()
     {
-        if (context.performed && !playerNav.isConfirmed && playerNav.canInteract)
+        skinColorIndex++;
+        if (skinColorIndex > skinColors.Count - 1)
         {
-            skinColorIndex--;
-            if (skinColorIndex < 0)
-            {
-                skinColorIndex = skinColors.Count - 1;
-            }
-            ChangeSkinType(skinColorIndex);
+            skinColorIndex = 0;
         }
+        ChangeSkinType(skinColorIndex);
+    }
+
+    public void PrevSkinType()
+    {
+        skinColorIndex--;
+        if (skinColorIndex < 0)
+        {
+            skinColorIndex = skinColors.Count - 1;
+        }
+        ChangeSkinType(skinColorIndex);
     }
 
     

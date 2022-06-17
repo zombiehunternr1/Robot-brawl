@@ -22,9 +22,20 @@ public class PlayerMenuNavigator : MonoBehaviour
     private Animator anim;
     private Vector3 spawnPos;
     private PlayerControl playerControl;
+    private CharacterSkinController characterSkin;
+
+    [SerializeField]
+    private GameEventCheckReady checkReadyEvent;
+    [SerializeField]
+    private GameEventLeave leavePlayerEvent;
+    [SerializeField]
+    private GameEventEmpty switchSceneEvent;
+    [SerializeField]
+    private GameEventEmpty startGameEvent;
 
     private void OnEnable()
     {
+        characterSkin = GetComponent<CharacterSkinController>();
         playerControl = GetComponent<PlayerControl>();
         anim = GetComponent<Animator>();
         anim.runtimeAnimatorController = menuAnimations;
@@ -44,34 +55,48 @@ public class PlayerMenuNavigator : MonoBehaviour
         spawnPos = getSpawnPoint;
     }
 
-    public void ConfirmOption(InputAction.CallbackContext context)
+    public void NextSkinType(InputAction.CallbackContext context)
     {
         if (context.performed && !isConfirmed && canInteract)
         {
+            characterSkin.NextSkinType();
+        }
+    }
+
+    public void PrevSkinType(InputAction.CallbackContext context)
+    {
+        if (context.performed && !isConfirmed && canInteract)
+        {
+            characterSkin.PrevSkinType();
+        }
+    }
+
+    public void ConfirmOption(InputAction.CallbackContext context)
+    {
+        if (context.performed && !isConfirmed)
+        {
             isConfirmed = true;
             anim.CrossFade("Ready", smoothAnimTransitionTime);
-            PlayerJoinManager.changePlayerReadyStatus.Invoke(playerID, isConfirmed);
-            return;
+            checkReadyEvent.RaiseCheckReady(playerID, isConfirmed);
         }
         else if (context.performed && PlayerJoinManager.allPlayersReady && canInteract)
         {
             canInteract = false;
-            PlayerJoinManager.loadMinigameEvent.Invoke();
-            return;
+            switchSceneEvent.Raise();
         }
         else if (context.performed && PlayerJoinManager.allPlayersReady && !canInteract)
         {
-            MiniGameManager.startMinigameCountdownEvent.Invoke();
+            startGameEvent.Raise();
         }
     }
 
     public void ReturnOption(InputAction.CallbackContext context)
     {
-        if (context.performed && isConfirmed && canInteract)
+        if (context.performed && isConfirmed)
         {
             isConfirmed = false;
             anim.CrossFade("Unready", smoothAnimTransitionTime);
-            PlayerJoinManager.changePlayerReadyStatus.Invoke(playerID, isConfirmed);
+            checkReadyEvent.RaiseCheckReady(playerID, isConfirmed);
         }
         else if (context.performed && !isConfirmed && canInteract)
         {
@@ -106,7 +131,7 @@ public class PlayerMenuNavigator : MonoBehaviour
         if (canInteract)
         {
             canInteract = false;
-            PlayerJoinManager.leavePlayerEvent.Invoke(playerInput);
+            leavePlayerEvent.RaiseLeave(playerInput);
             while (transform.position != new Vector3(spawnPos.x, -3.5f, spawnPos.z))
             {
                 transform.position = Vector3.Lerp(transform.position, new Vector3(spawnPos.x, -3.5f, spawnPos.y), Time.deltaTime * moveSpeed * leaveSpeed);
