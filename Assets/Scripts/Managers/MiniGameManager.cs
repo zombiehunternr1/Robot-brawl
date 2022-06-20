@@ -98,7 +98,6 @@ public class MiniGameManager : MonoBehaviour
             {
                 player.rankPosition = RankList.IndexOf(player);
             }
-            countdownText.text = "Player " + RankList[0].playerID + " Wins!";
             stopGameEvent.Raise();
         }
     }

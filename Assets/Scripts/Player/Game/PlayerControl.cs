@@ -126,6 +126,7 @@ public class PlayerControl : MonoBehaviour
         rB.velocity = Vector3.zero;
         anim.Play("Falling");
         UpdateActivePlayersEvent.RaiseInt(playerID);
+        this.enabled = false;
     }
 
     //Once this function gets called the coroutine to start the dizzyness cooldown
@@ -166,9 +167,10 @@ public class PlayerControl : MonoBehaviour
     //Countdown for how long the player stays in dizzyness mode before being able to move again.
     private IEnumerator DizzynessCooldown()
     {
+        allowInput = false;
+        rB.velocity = Vector3.zero;
         float currentTime = 0;
         bool isDizzy = true;
-        allowInput = false;
         playerSkin.StunnedExpression();
         anim.Play("Dizzy");
         while(isDizzy)
