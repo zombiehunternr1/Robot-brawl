@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using System;
 
 public class PlayerJoinManager : MonoBehaviour
@@ -102,11 +101,6 @@ public class PlayerJoinManager : MonoBehaviour
         mainMenuReference.CheckStartDisplay(allPlayersReady);
     }
 
-    public void LoadMiniGameScene()
-    {
-        SceneManager.LoadScene("Game");
-    }
-
     public void PositionPlayers()
     {
         for(int i = 0; i < playersJoinedSO.Count; i++)
@@ -116,6 +110,22 @@ public class PlayerJoinManager : MonoBehaviour
                 playersJoinedPrefabs[prefabIndex].transform.position = playersJoinedSO[i].spawnPosition;
                 prefabIndex++;
             }
+        }
+    }
+
+    public void AllowPlayerInput()
+    {
+        foreach (PlayerMenuNavigator player in playersJoinedPrefabs)
+        {
+            player.allowInput = true;
+        }
+    }
+
+    public void DisAllowInput()
+    {
+        foreach(PlayerMenuNavigator player in playersJoinedPrefabs)
+        {
+            player.allowInput = false;
         }
     }
 

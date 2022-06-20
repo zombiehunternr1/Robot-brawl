@@ -8,8 +8,11 @@ public class PlayerMenuNavigator : MonoBehaviour
 {
     public bool isConfirmed { get; set; }
     public bool canInteract { get; set; }
+    public bool allowInput { get; set; }
     public int playerID;
 
+    [SerializeField]
+    private GameEventEmpty disAllowInputEvent;
     [SerializeField]
     private AnimatorController menuAnimations;
     [SerializeField]
@@ -35,6 +38,7 @@ public class PlayerMenuNavigator : MonoBehaviour
 
     private void OnEnable()
     {
+        allowInput = true;
         characterSkin = GetComponent<CharacterSkinController>();
         playerControl = GetComponent<PlayerControl>();
         anim = GetComponent<Animator>();
@@ -57,7 +61,7 @@ public class PlayerMenuNavigator : MonoBehaviour
 
     public void NextSkinType(InputAction.CallbackContext context)
     {
-        if (context.performed && !isConfirmed && canInteract)
+        if (context.performed && !isConfirmed && canInteract && allowInput)
         {
             characterSkin.NextSkinType();
         }
@@ -65,7 +69,7 @@ public class PlayerMenuNavigator : MonoBehaviour
 
     public void PrevSkinType(InputAction.CallbackContext context)
     {
-        if (context.performed && !isConfirmed && canInteract)
+        if (context.performed && !isConfirmed && canInteract && allowInput)
         {
             characterSkin.PrevSkinType();
         }
@@ -73,18 +77,19 @@ public class PlayerMenuNavigator : MonoBehaviour
 
     public void ConfirmOption(InputAction.CallbackContext context)
     {
-        if (context.performed && !isConfirmed)
+        if (context.performed && !isConfirmed && allowInput)
         {
             isConfirmed = true;
             anim.CrossFade("Ready", smoothAnimTransitionTime);
             checkReadyEvent.RaiseCheckReady(playerID, isConfirmed);
         }
-        else if (context.performed && PlayerJoinManager.allPlayersReady && canInteract)
+        else if (context.performed && PlayerJoinManager.allPlayersReady && canInteract && allowInput)
         {
             canInteract = false;
+            disAllowInputEvent.Raise();
             switchSceneEvent.Raise();
         }
-        else if (context.performed && PlayerJoinManager.allPlayersReady && !canInteract)
+        else if (context.performed && PlayerJoinManager.allPlayersReady && !canInteract && allowInput)
         {
             startGameEvent.Raise();
         }
@@ -92,7 +97,7 @@ public class PlayerMenuNavigator : MonoBehaviour
 
     public void ReturnOption(InputAction.CallbackContext context)
     {
-        if (context.performed && isConfirmed)
+        if (context.performed && isConfirmed && allowInput)
         {
             isConfirmed = false;
             anim.CrossFade("Unready", smoothAnimTransitionTime);

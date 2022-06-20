@@ -744,13 +744,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerID: 0
+  disAllowInputEvent: {fileID: 11400000, guid: 7915b76261cca254e922de3c9e25b440, type: 2}
   menuAnimations: {fileID: 9100000, guid: 7b0e05992f5d66f4b99a6c448f7de238, type: 2}
   moveSpeed: 5
   leaveSpeed: 3
   smoothAnimTransitionTime: 0.15
   checkReadyEvent: {fileID: 11400000, guid: 8a5262f190ecd924a86d2a1327b55be5, type: 2}
   leavePlayerEvent: {fileID: 11400000, guid: 8b9366f14d63b014eb0634b65f27ff65, type: 2}
-  switchSceneEvent: {fileID: 11400000, guid: 3d9efafae2ad0784aba4ed3fb72cb88b, type: 2}
+  switchSceneEvent: {fileID: 11400000, guid: ac01316503f394e47bfb250a57038581, type: 2}
   startGameEvent: {fileID: 11400000, guid: ed5a6ed1b447a1340be2716f0490b66d, type: 2}
 --- !u!114 &8287312910086004120
 MonoBehaviour:
