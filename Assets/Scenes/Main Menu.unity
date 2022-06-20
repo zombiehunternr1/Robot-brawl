@@ -7019,7 +7019,7 @@ MonoBehaviour:
   allowPlayerInput: {fileID: 11400000, guid: 7fec45cbbfee1d7459e7b1970b9798c4, type: 2}
   disAllowPlayerInput: {fileID: 11400000, guid: 7915b76261cca254e922de3c9e25b440, type: 2}
   fadePanel: {fileID: 1879985268}
-  waitTillSwitchScenes: 0
+  waitTillSwitchScenes: 2
   fadeSpeed: 0.5
 --- !u!4 &1196532144
 Transform:

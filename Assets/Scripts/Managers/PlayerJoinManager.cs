@@ -7,6 +7,7 @@ using System;
 
 public class PlayerJoinManager : MonoBehaviour
 {
+    public static PlayerJoinManager instance;
     public static bool allPlayersReady { get; set; }
 
     [SerializeField]
@@ -30,7 +31,15 @@ public class PlayerJoinManager : MonoBehaviour
             playersJoinedSO[i].currentPosition = Vector3.zero;
         }
         allPlayersReady = false;
-        DontDestroyOnLoad(this);
+        if(instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(instance);
+        }
+        else
+        {
+            Destroy(this);
+        }
     }
 
     private void OnDisable()

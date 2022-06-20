@@ -12,6 +12,9 @@ public class DisplayPlayerRank : MonoBehaviour
     private List<Transform> rankPositions;
     [SerializeField]
     private List<PlayerInfo> playerInfo;
+    [SerializeField]
+    private float timeTillGameReset;
+    private float currenttime;
     private int playerRank;
 
 
@@ -29,5 +32,16 @@ public class DisplayPlayerRank : MonoBehaviour
         }
         positionRankPlayerEvent.Raise();
         displayRankPlayerEvent.Raise();
+        StartCoroutine(CooldownTillReset());
+    }
+
+    private IEnumerator CooldownTillReset()
+    {
+        while(currenttime <= timeTillGameReset)
+        {
+            currenttime += Time.deltaTime / timeTillGameReset;
+            yield return null;
+        }
+        Debug.Log("End game!");
     }
 }

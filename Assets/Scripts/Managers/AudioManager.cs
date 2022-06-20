@@ -20,10 +20,10 @@ public class AudioManager : MonoBehaviour
 
     private void OnEnable()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(this);
+            DontDestroyOnLoad(instance);
         }
         else
         {

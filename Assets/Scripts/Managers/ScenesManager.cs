@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class ScenesManager : MonoBehaviour
 {
+    public static ScenesManager instance;
+
     [SerializeField]
     private GameEventEmpty allowPlayerInput;
     [SerializeField]
@@ -25,7 +27,15 @@ public class ScenesManager : MonoBehaviour
     {
         gameFinished = false;
         fadeToBlack = true;
-        DontDestroyOnLoad(this);
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(instance);
+        }
+        else
+        {
+            Destroy(this);
+        }
     }
     
     public void GameOver()

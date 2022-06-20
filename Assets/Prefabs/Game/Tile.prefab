@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 4050761127132947929}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -2.5}
-  m_LocalScale: {x: 5, y: 0.2, z: 5}
+  m_LocalScale: {x: 3, y: 0.2, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3496639368925415306}
@@ -161,7 +161,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5, y: 0.2, z: 5}
+  m_Size: {x: 3, y: 0.2, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &64841885331927809
 Animator:
@@ -196,6 +196,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modelTransform: {fileID: 3512087597462569544}
+  crossFadeSpeed: 0.5
   shakeAmount: 0.1
   shakeDuration: 5
-  crossFadeSpeed: 0.5
