@@ -2401,8 +2401,9 @@ MonoBehaviour:
   maxInterval: 1
   projectilePrefab: {fileID: 2923257019494562571, guid: 2587b640c1fc88f46a5f3753568706ff, type: 3}
   defaultPoolCapacity: 25
-  maximumPoolCapacity: 10000
+  maximumPoolCapacity: 25
   projectileHeight: 50
+  RankList: []
 --- !u!114 &1058924628
 MonoBehaviour:
   m_ObjectHideFlags: 0

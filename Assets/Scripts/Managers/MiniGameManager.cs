@@ -124,7 +124,6 @@ public class MiniGameManager : MonoBehaviour
             projectile.gameObject.SetActive(false);
         }, projectile =>
         {
-            Destroy(projectile.gameObject);
         }, false, defaultPoolCapacity, maximumPoolCapacity);
         SetupProjectiles();
     }
