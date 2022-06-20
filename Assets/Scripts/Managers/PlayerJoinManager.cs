@@ -23,10 +23,11 @@ public class PlayerJoinManager : MonoBehaviour
     {
         for (int i = 0; i < playersJoinedSO.Count; i++)
         {
-            playersJoinedSO[i].PlayerID = 0;
+            playersJoinedSO[i].playerID = 0;
+            playersJoinedSO[i].rankPosition = 0;
             playersJoinedSO[i].isReady = false;
             playersJoinedSO[i].skinColor = null;
-            playersJoinedSO[i].spawnPosition = Vector3.zero;
+            playersJoinedSO[i].currentPosition = Vector3.zero;
         }
         allPlayersReady = false;
         DontDestroyOnLoad(this);
@@ -38,9 +39,11 @@ public class PlayerJoinManager : MonoBehaviour
         {
             for (int i = 0; i < playersJoinedSO.Count; i++)
             {
-                playersJoinedSO[i].PlayerID = 0;
+                playersJoinedSO[i].playerID = 0;
+                playersJoinedSO[i].rankPosition = 0;
                 playersJoinedSO[i].isReady = false;
                 playersJoinedSO[i].skinColor = null;
+                playersJoinedSO[i].currentPosition = Vector3.zero;
             }
         }
     }
@@ -67,12 +70,12 @@ public class PlayerJoinManager : MonoBehaviour
     {
         if (isReady)
         {
-            playersJoinedSO[playerIndex - 1].PlayerID = playerIndex;
+            playersJoinedSO[playerIndex - 1].playerID = playerIndex;
             playersJoinedSO[playerIndex - 1].isReady = isReady;
         }
         else
         {
-            playersJoinedSO[playerIndex - 1].PlayerID = 0;
+            playersJoinedSO[playerIndex - 1].playerID = 0;
             playersJoinedSO[playerIndex - 1].isReady = isReady;
         }
         AudioManager.instance.PlayReadyEvent();
@@ -103,11 +106,35 @@ public class PlayerJoinManager : MonoBehaviour
 
     public void PositionPlayers()
     {
+        prefabIndex = 0;
         for(int i = 0; i < playersJoinedSO.Count; i++)
         {
-            if(playersJoinedSO[i].PlayerID != 0)
+            if(playersJoinedSO[i].playerID != 0)
             {
-                playersJoinedPrefabs[prefabIndex].transform.position = playersJoinedSO[i].spawnPosition;
+                playersJoinedPrefabs[prefabIndex].transform.position = playersJoinedSO[i].currentPosition;
+                prefabIndex++;
+            }
+        }
+    }
+
+    public void DisplayRankOrder()
+    {
+        prefabIndex = 0;
+        for (int i = 0; i < playersJoinedSO.Count; i++)
+        {
+            if(playersJoinedSO[i].playerID != 0)
+            {
+                playersJoinedPrefabs[prefabIndex].transform.rotation = new Quaternion(0, 180, 0, 0);
+                if (playersJoinedSO[i].rankPosition == 0)
+                {
+                    playersJoinedPrefabs[prefabIndex].GetComponent<Animator>().Play("Victory");
+                    playersJoinedPrefabs[prefabIndex].GetComponent<CharacterSkinController>().VictoryExpression();
+                }
+                else
+                {
+                    playersJoinedPrefabs[prefabIndex].GetComponent<Animator>().Play("Lost");
+                    playersJoinedPrefabs[prefabIndex].GetComponent<CharacterSkinController>().DefeatExpression();
+                }
                 prefabIndex++;
             }
         }
@@ -125,6 +152,7 @@ public class PlayerJoinManager : MonoBehaviour
     {
         foreach(PlayerMenuNavigator player in playersJoinedPrefabs)
         {
+            player.canInteract = false;
             player.allowInput = false;
         }
     }

@@ -19,7 +19,7 @@ public class SpawnPlayerManager : MonoBehaviour
     {        
         for(int i = 0; i < playerInfo.Count; i++)
         {
-            playerInfo[i].spawnPosition = SpawnPoints[i].position;
+            playerInfo[i].currentPosition = SpawnPoints[i].position;
         }
     }
 }

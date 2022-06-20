@@ -978,7 +978,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8287312910086004120}
         m_TargetAssemblyTypeName: PlayerControl, Assembly-CSharp
-        m_MethodName: GameOver
+        m_MethodName: DisallowInput
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2250,7 +2250,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.008
+  m_Radius: 0.01
   m_Center: {x: 0, y: 0.004, z: 0}
 --- !u!1 &3912219095347290418
 GameObject:

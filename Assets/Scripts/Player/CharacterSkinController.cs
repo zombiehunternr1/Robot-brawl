@@ -32,6 +32,18 @@ public class CharacterSkinController : MonoBehaviour
         SetEyesExpression(offset);
     }
 
+    public void VictoryExpression()
+    {
+        offset = new Vector2(.33f, 0);
+        SetEyesExpression(offset);
+    }
+
+    public void DefeatExpression()
+    {
+        offset = new Vector2(.33f, -.33f);
+        SetEyesExpression(offset);
+    }
+
     private void SetEyesExpression(Vector2 offset)
     {
         for (int i = 0; i < characterMaterials.Length; i++)

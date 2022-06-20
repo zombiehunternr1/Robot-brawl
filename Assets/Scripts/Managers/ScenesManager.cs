@@ -13,17 +13,27 @@ public class ScenesManager : MonoBehaviour
     [SerializeField]
     private Image fadePanel;
     [SerializeField]
+    private float waitTillSwitchScenes;
+    [SerializeField]
     private float fadeSpeed;
     private float fadeAmount;
     private bool fadeToBlack;
+    private bool gameFinished;
     private Color currentFadeColor;
 
     private void OnEnable()
     {
+        gameFinished = false;
         fadeToBlack = true;
         DontDestroyOnLoad(this);
     }
     
+    public void GameOver()
+    {
+        gameFinished = true;
+        StartCoroutine(fadeEffect());
+    }
+
     public void SwitchScene()
     {
         disAllowPlayerInput.Raise();
@@ -33,6 +43,12 @@ public class ScenesManager : MonoBehaviour
     private void LoadMiniGameScene()
     {
         SceneManager.LoadScene("Game");
+        StartCoroutine(fadeEffect());
+    }
+
+    private void LoadRankScene()
+    {
+        SceneManager.LoadScene("Rank");
         StartCoroutine(fadeEffect());
     }
 
@@ -48,7 +64,15 @@ public class ScenesManager : MonoBehaviour
                 yield return null;
             }
             fadeToBlack = false;
-            LoadMiniGameScene();
+            yield return new WaitForSeconds(waitTillSwitchScenes);
+            if (gameFinished)
+            {
+                LoadRankScene();
+            }
+            else
+            {
+                LoadMiniGameScene();
+            }
         }
         else
         {
@@ -60,7 +84,10 @@ public class ScenesManager : MonoBehaviour
                 yield return null;
             }
             fadeToBlack = true;
-            allowPlayerInput.Raise();
+            if(!gameFinished)
+            {
+                allowPlayerInput.Raise();
+            }
         }
     }
 }

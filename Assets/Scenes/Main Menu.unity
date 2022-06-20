@@ -925,6 +925,8 @@ GameObject:
   - component: {fileID: 114275704}
   - component: {fileID: 114275708}
   - component: {fileID: 114275709}
+  - component: {fileID: 114275710}
+  - component: {fileID: 114275711}
   m_Layer: 0
   m_Name: Player manager
   m_TagString: Untagged
@@ -1181,6 +1183,62 @@ MonoBehaviour:
       - m_Target: {fileID: 114275703}
         m_TargetAssemblyTypeName: PlayerJoinManager, Assembly-CSharp
         m_MethodName: AllowPlayerInput
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &114275710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114275700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 823d9ff58462ebe448b4ea0e9d424562, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameEvent: {fileID: 11400000, guid: 9f4f11f7ac3629b42a3152221a24a8eb, type: 2}
+  _respondse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1196532143}
+        m_TargetAssemblyTypeName: ScenesManager, Assembly-CSharp
+        m_MethodName: GameOver
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &114275711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114275700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 823d9ff58462ebe448b4ea0e9d424562, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameEvent: {fileID: 11400000, guid: a75579e05d9ac06488fcfb6b3c8b7d70, type: 2}
+  _respondse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114275703}
+        m_TargetAssemblyTypeName: PlayerJoinManager, Assembly-CSharp
+        m_MethodName: DisplayRankOrder
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6961,6 +7019,7 @@ MonoBehaviour:
   allowPlayerInput: {fileID: 11400000, guid: 7fec45cbbfee1d7459e7b1970b9798c4, type: 2}
   disAllowPlayerInput: {fileID: 11400000, guid: 7915b76261cca254e922de3c9e25b440, type: 2}
   fadePanel: {fileID: 1879985268}
+  waitTillSwitchScenes: 0
   fadeSpeed: 0.5
 --- !u!4 &1196532144
 Transform:

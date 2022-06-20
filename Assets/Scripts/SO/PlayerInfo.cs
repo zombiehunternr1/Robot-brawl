@@ -5,8 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="Player Info", menuName ="SO/Player Info")]
 public class PlayerInfo : ScriptableObject
 {
-    public int PlayerID;
+    public int playerID;
+    public int rankPosition;
     public bool isReady;
     public Material skinColor;
-    public Vector3 spawnPosition;
+    public Vector3 currentPosition;
 }

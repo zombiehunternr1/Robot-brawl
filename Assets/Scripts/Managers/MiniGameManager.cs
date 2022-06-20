@@ -63,7 +63,7 @@ public class MiniGameManager : MonoBehaviour
     {
         for(int i = 0; i < playersSO.Count; i++)
         {
-            if(playersSO[i].PlayerID == playerID)
+            if(playersSO[i].playerID == playerID)
             {
                 RankList.Add(playersSO[i]);
             }
@@ -92,9 +92,13 @@ public class MiniGameManager : MonoBehaviour
                 {
                     RankList.Add(player);
                 }
-                RankList.Reverse();
-                countdownText.text = "Player " + RankList[0].PlayerID + " Wins!";
             }
+            RankList.Reverse();
+            foreach(PlayerInfo player in RankList)
+            {
+                player.rankPosition = RankList.IndexOf(player);
+            }
+            countdownText.text = "Player " + RankList[0].playerID + " Wins!";
             stopGameEvent.Raise();
         }
     }
@@ -103,7 +107,7 @@ public class MiniGameManager : MonoBehaviour
     {
         for(int i = 0; i < playersSO.Count; i++)
         {
-            if(playersSO[i].PlayerID == 0)
+            if(playersSO[i].playerID == 0)
             {
                 RankList.Add(playersSO[i]);
             }

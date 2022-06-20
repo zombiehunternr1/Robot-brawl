@@ -7,7 +7,7 @@ public class RaiseIntEvent : MonoBehaviour
     [SerializeField]
     private GameEventInt _gameIntEvent;
 
-    public void RaiseLeaveEvent(int intvalue)
+    public void RaiseInt(int intvalue)
     {
         _gameIntEvent.RaiseInt(intvalue);
     }

@@ -123,13 +123,9 @@ public class PlayerControl : MonoBehaviour
     {
         allowInput = false;
         rB.useGravity = false;
+        rB.velocity = Vector3.zero;
         anim.Play("Falling");
         UpdateActivePlayersEvent.RaiseInt(playerID);
-    }
-
-    public void GameOver()
-    {
-        allowInput = false;       
     }
 
     //Once this function gets called the coroutine to start the dizzyness cooldown
