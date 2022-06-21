@@ -282,7 +282,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Gamepad",
+                    "name": "Gamepad Arrow",
                     "id": "9c078a36-1dec-468e-b06f-e8995e443bae",
                     "path": "2DVector",
                     "interactions": "",
@@ -302,6 +302,17 @@
                     "action": "Navigate Left",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "74433fc9-3566-4924-9692-4a88cd1f2da6",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Navigate Left",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "WASD",
@@ -348,7 +359,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Gamepad",
+                    "name": "Gamepad Arrow",
                     "id": "35d8ca42-e2c5-4409-9970-b8491d4d47bf",
                     "path": "2DVector",
                     "interactions": "",
@@ -368,6 +379,17 @@
                     "action": "Navigate Right",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "dd5eed92-1ded-4a93-b3a9-a429ef81f2a7",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Navigate Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
