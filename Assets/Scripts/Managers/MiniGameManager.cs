@@ -19,6 +19,8 @@ public class MiniGameManager : MonoBehaviour
     [SerializeField]
     private RectTransform MinigameRulesPanel;
     [SerializeField]
+    private RectTransform MinigameInstructionPanel;
+    [SerializeField]
     private TextMeshProUGUI countdownText;
     [SerializeField]
     private Transform tilesReference;
@@ -160,6 +162,7 @@ public class MiniGameManager : MonoBehaviour
     public void StartCountdown()
     {
         MinigameRulesPanel.gameObject.SetActive(false);
+        MinigameInstructionPanel.gameObject.SetActive(true);
         StartCoroutine(Countdown());
     }
 

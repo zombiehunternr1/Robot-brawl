@@ -304,6 +304,28 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "Gamepad Joystick",
+                    "id": "e9b834cf-9029-4b00-9b9d-2cc9f15b1dbe",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Navigate Left",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "left",
+                    "id": "e0b5a0bb-afc6-49b9-a131-eefb2a171648",
+                    "path": "<Gamepad>/leftStick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Navigate Left",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "74433fc9-3566-4924-9692-4a88cd1f2da6",
                     "path": "<Gamepad>/leftShoulder",
@@ -373,6 +395,28 @@
                     "name": "right",
                     "id": "5046234a-09a8-494e-b49d-e409962ac7ce",
                     "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Navigate Right",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Gamepad Joystick",
+                    "id": "5547d01d-ed6b-4d61-96cf-4743a8250c50",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Navigate Right",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "right",
+                    "id": "669a0068-63d0-4068-8897-9f2d3d5d2d8c",
+                    "path": "<Gamepad>/leftStick/right",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
