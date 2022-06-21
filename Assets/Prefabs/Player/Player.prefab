@@ -765,7 +765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33a037534b84dd943bd9ea4b99e784cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UpdateActivePlayersEvent: {fileID: 11400000, guid: 0f5870223192e6e449c22f2afbc874f9, type: 2}
+  updateActivePlayersEvent: {fileID: 11400000, guid: 0f5870223192e6e449c22f2afbc874f9, type: 2}
   gameAnimations: {fileID: 9100000, guid: 24ed3f853737d1241a69f6416ee8a35c, type: 2}
   movementSpeed: 3.5
   crossFadeAnimSpeed: 0.1

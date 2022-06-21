@@ -8,7 +8,7 @@ public class PlayerControl : MonoBehaviour
 {
     public int playerID { get; set; }
     [SerializeField]
-    private GameEventInt UpdateActivePlayersEvent;
+    private GameEventInt updateActivePlayersEvent;
     [SerializeField]
     private AnimatorController gameAnimations;
     [SerializeField]
@@ -125,7 +125,7 @@ public class PlayerControl : MonoBehaviour
         rB.useGravity = false;
         rB.velocity = Vector3.zero;
         anim.Play("Falling");
-        UpdateActivePlayersEvent.RaiseInt(playerID);
+        updateActivePlayersEvent.RaiseInt(playerID);
         this.enabled = false;
     }
 
@@ -158,6 +158,7 @@ public class PlayerControl : MonoBehaviour
             anim.Play("Attack");
         }
     }
+
     //This checks if the player is currently on the ground or not
     private bool IsGrounded()
     {

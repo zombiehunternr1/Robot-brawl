@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class ScenesManager : MonoBehaviour
 {
     public static ScenesManager instance;
+    public bool allowRestart { get; set; }
 
     [SerializeField]
     private GameEventEmpty allowPlayerInput;
@@ -26,6 +27,7 @@ public class ScenesManager : MonoBehaviour
     private void OnEnable()
     {
         gameFinished = false;
+        allowRestart = false;
         fadeToBlack = true;
         if (instance == null)
         {
@@ -42,6 +44,15 @@ public class ScenesManager : MonoBehaviour
     {
         gameFinished = true;
         StartCoroutine(fadeEffect());
+    }
+
+    public void RestartGame()
+    {
+        if (allowRestart)
+        {
+            allowRestart = false;
+            StartCoroutine(fadeEffect());
+        }
     }
 
     public void SwitchScene()

@@ -175,13 +175,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 823d9ff58462ebe448b4ea0e9d424562, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameEvent: {fileID: 11400000, guid: 184662a28f8b68249b293a174e36f95b, type: 2}
+  _gameEvent: {fileID: 11400000, guid: d71672d541b88744d9044801292c8a8f, type: 2}
   _respondse:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4178256111355420565}
         m_TargetAssemblyTypeName: ScenesManager, Assembly-CSharp
-        m_MethodName: ResetGame
+        m_MethodName: RestartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
