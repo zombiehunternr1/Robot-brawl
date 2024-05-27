@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,15 +12,14 @@ public class PlayerMenuNavigator : MonoBehaviour
     [SerializeField]
     private GameEventEmpty disAllowInputEvent;
     [SerializeField]
-    private AnimatorController menuAnimations;
-    [SerializeField]
     private float moveSpeed;
     [SerializeField]
     private float leaveSpeed;
     [SerializeField]
     private float smoothAnimTransitionTime;
     private PlayerInput playerJoinedRef;
-    private Animator anim;
+    [SerializeField]
+    private Animator animMenu;
     private Vector3 spawnPos;
     private PlayerControl playerControl;
     private CharacterSkinController characterSkin;
@@ -41,8 +38,6 @@ public class PlayerMenuNavigator : MonoBehaviour
         allowInput = true;
         characterSkin = GetComponent<CharacterSkinController>();
         playerControl = GetComponent<PlayerControl>();
-        anim = GetComponent<Animator>();
-        anim.runtimeAnimatorController = menuAnimations;
         canInteract = true;
         isConfirmed = false;
         DontDestroyOnLoad(gameObject);
@@ -80,7 +75,7 @@ public class PlayerMenuNavigator : MonoBehaviour
         if (context.performed && !isConfirmed && allowInput)
         {
             isConfirmed = true;
-            anim.CrossFade("Ready", smoothAnimTransitionTime);
+            animMenu.CrossFade("Ready", smoothAnimTransitionTime);
             checkReadyEvent.RaiseCheckReady(playerID, isConfirmed);
         }
         else if (context.performed && PlayerJoinManager.allPlayersReady && canInteract && allowInput)
@@ -100,7 +95,7 @@ public class PlayerMenuNavigator : MonoBehaviour
         if (context.performed && isConfirmed && allowInput)
         {
             isConfirmed = false;
-            anim.CrossFade("Unready", smoothAnimTransitionTime);
+            animMenu.CrossFade("Unready", smoothAnimTransitionTime);
             checkReadyEvent.RaiseCheckReady(playerID, isConfirmed);
         }
         else if (context.performed && !isConfirmed && canInteract)

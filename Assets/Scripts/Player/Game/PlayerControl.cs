@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,8 +7,6 @@ public class PlayerControl : MonoBehaviour
     public int playerID { get; set; }
     [SerializeField]
     private GameEventInt updateActivePlayersEvent;
-    [SerializeField]
-    private AnimatorController gameAnimations;
     [SerializeField]
     private float movementSpeed;
     [SerializeField]
@@ -29,7 +25,10 @@ public class PlayerControl : MonoBehaviour
     float distanceToGround;
     private Rigidbody rB;
     private Vector3 moveDirection;
-    private Animator anim;
+    [SerializeField]
+    private Animator animGameplay;
+    [SerializeField]
+    private Animator animMenu;
     private bool canAttack = true;
     private bool allowInput;
     private SphereCollider punchCollider;
@@ -41,10 +40,10 @@ public class PlayerControl : MonoBehaviour
         punchCollider = GetComponentInChildren<SphereCollider>();
         PlayerInput playerInput = GetComponent<PlayerInput>();
         rB = GetComponent<Rigidbody>();
-        anim = GetComponent<Animator>();
+        animGameplay.enabled = true;
+        animMenu.enabled = false;
         punchCollider.enabled = false;
         rB.useGravity = true;
-        anim.runtimeAnimatorController = gameAnimations;
         playerInput.SwitchCurrentActionMap("Game");
     }
 
@@ -54,12 +53,12 @@ public class PlayerControl : MonoBehaviour
         if (IsGrounded())
         {
             rB.useGravity = false;
-            anim.SetFloat("Speed", moveDirection.magnitude);
+            animGameplay.SetFloat("Speed", moveDirection.magnitude);
         }
         else
         {
             rB.useGravity = true;
-            anim.SetFloat("Speed", 0);
+            animGameplay.SetFloat("Speed", 0);
         }
     }
 
@@ -124,7 +123,7 @@ public class PlayerControl : MonoBehaviour
         allowInput = false;
         rB.useGravity = false;
         rB.velocity = Vector3.zero;
-        anim.Play("Falling");
+        animGameplay.Play("Falling");
         updateActivePlayersEvent.RaiseInt(playerID);
         this.enabled = false;
     }
@@ -155,7 +154,7 @@ public class PlayerControl : MonoBehaviour
         if (context.performed && canAttack && IsGrounded() && allowInput)
         {
             canAttack = false;
-            anim.Play("Attack");
+            animGameplay.Play("Attack");
         }
     }
 
@@ -173,7 +172,7 @@ public class PlayerControl : MonoBehaviour
         float currentTime = 0;
         bool isDizzy = true;
         playerSkin.StunnedExpression();
-        anim.Play("Dizzy");
+        animGameplay.Play("Dizzy");
         while(isDizzy)
         {
             currentTime += Time.deltaTime;
@@ -186,6 +185,6 @@ public class PlayerControl : MonoBehaviour
         }
         allowInput = true;
         playerSkin.NormalExpression();
-        anim.CrossFade("Game idle", crossFadeAnimSpeed);
+        animGameplay.CrossFade("Game idle", crossFadeAnimSpeed);
     }
 }
