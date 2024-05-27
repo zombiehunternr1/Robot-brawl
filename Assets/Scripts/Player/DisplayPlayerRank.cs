@@ -42,6 +42,5 @@ public class DisplayPlayerRank : MonoBehaviour
             currenttime += Time.deltaTime / timeTillGameReset;
             yield return null;
         }
-        Debug.Log("End game!");
     }
 }
